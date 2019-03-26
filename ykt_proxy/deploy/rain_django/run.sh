@@ -25,6 +25,7 @@ fi
 cd ${WORK_DIR}
 cp -f ${WORK_DIR}/conf/cron/professional_rw /etc/crontab
 rm -rf /tmp/supervisord.pid
+python manage
 
 /etc/init.d/cron start
 /usr/local/bin/supervisord

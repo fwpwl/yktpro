@@ -11,7 +11,8 @@ def d():
 
 @hosts("localhost")
 def build_django_images():
-    local('cd /home/ec2-user/changping/pro_data/deploy && sudo ./build_rain_django.sh')
+    # local('cd /home/ec2-user/changping/pro_data/deploy && sudo ./build_rain_django.sh')
+    local('cd /home/bl_deploy/changping/proxy/ykt_proxy/deploy && sudo ./build_rain_django.sh')
 
 
 @hosts("localhost")
