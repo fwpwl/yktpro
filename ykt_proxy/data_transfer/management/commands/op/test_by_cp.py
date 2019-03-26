@@ -19,6 +19,9 @@ class Command(BaseCommand):
         # conn = psycopg2.connect(database="testdb", user="postgres", password="pass123", host="127.0.0.1", port="5432")
         db = OracleTransferHandler(connect_str="user_yuketang/user_yuketang@172.16.8.70:1521/icdc")
 
+        db = OracleTransferHandler(connect_str="usr_yuketang/Cidp#2019@10.159.241.3:1521/KFPTDB")
+
+
         statement = "select XH,  XM,  YXSH,  ZYM,  SZBH,  SZNJ,  RXNY,  XZ,  XSDQZTM from icdc_gx.V_XSJBXX_BKS"
         ret_list = []
         data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
