@@ -34,7 +34,6 @@ def cqrz_get_user_info_data(cursor):
     rows = cursor.fetchall()
     user_info_data = query_data_to_dict_list(rows, ["department_name", "tradition_classroom_name", "number",
                                                     "name", "year", "user_type"])
-    print user_info_data
     return user_info_data
 
 
