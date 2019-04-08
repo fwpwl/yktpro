@@ -11,6 +11,8 @@ def get_user_map_data_view(request):
     """
     try:
         ret_data = cqrz_get_user_info_data()
+        print '*'*100
+        print ret_data[0]
         result_dict = {
             "success": True,
             "msg": "",
