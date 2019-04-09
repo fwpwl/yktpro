@@ -27,7 +27,6 @@ def get_client(func):
     return wrapper
 
 
-
 @get_client
 def cqrz_get_user_info_data(cursor):
     cursor.execute("select dwmc, bjmc, xgh, xm, nj, lx1  from data_out.v_ids")
@@ -45,7 +44,6 @@ def cqrz_get_course_data(cursor):
     course_data = query_data_to_dict_list(rows,["year_term", "teacher_number", "course_name", "course_code", "classroom_code"])
     print course_data
     return course_data
-
 
 
 @get_client
