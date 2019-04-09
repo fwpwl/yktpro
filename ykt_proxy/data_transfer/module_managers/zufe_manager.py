@@ -28,6 +28,7 @@ def zufe_get_bks_data(db):
     keys_list = ["number", "name", 'department_code', 'major_code', 'tra_class_code', 'term',
                  'come_in_year', 'xuezhi', 'current_status_code']
     user_info_data = query_data_to_dict_list(data_list, keys_list)
+    print user_info_data
 
     return user_info_data
 
