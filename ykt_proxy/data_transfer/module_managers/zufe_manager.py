@@ -2,6 +2,34 @@
 from data_transfer.data_proxy_utils import OracleTransferHandler, DataProxyBase
 
 
+def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
+    final_list = []
+    for tuple_item in query_data_list_of_tuple:
+        tmp_dict = dict(zip(keys_list, tuple_item))
+        final_list.append(tmp_dict)
+    return final_list
+
+
+def get_client(func):
+    """
+    """
+
+    def wrapper():
+        conn = OracleTransferHandler(connect_str="user_yuketang/user_yuketang@172.16.8.70:1521/icdc")
+        func(conn)
+
+    return wrapper
+
+
+@get_client
+def cqrz_get_user_info_data(db):
+    statement = "select XH,  XM,  YXSH,  ZYM,  SZBH,  SZNJ,  RXNY,  XZ,  XSDQZTM from icdc_gx.V_XSJBXX_BKS"
+    ret_list = []
+    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+
+
+
+
 class ZufeDataProxy(DataProxyBase):
     """
 
