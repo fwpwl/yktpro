@@ -16,7 +16,7 @@ def get_client(func):
 
     def wrapper():
         conn = OracleTransferHandler(connect_str="user_yuketang/user_yuketang@172.16.8.70:1521/icdc")
-        func(conn)
+        return func(conn)
 
     return wrapper
 
