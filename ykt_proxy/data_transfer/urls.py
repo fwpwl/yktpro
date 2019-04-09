@@ -13,4 +13,5 @@ urlpatterns += [
     # 学校教务系统验证模块
     url(r"^fzxy/", include("data_transfer.module_urls.fzxy_urls")),
     url(r"^zufe/", include("data_transfer.module_urls.zufe_urls")),
+    url(r"^cqrz/", include("data_transfer.module_urls.cqrz_urls")),
 ]
