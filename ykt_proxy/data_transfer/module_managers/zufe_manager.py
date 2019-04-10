@@ -46,9 +46,9 @@ def zufe_get_yjs_data(db):
 
 @get_client
 def zufe_get_teacher_data(db):
-    statement = "select GH,  XM,  DQZTM from icdc_gx.V_JZGJBXX"
+    statement = "select GH,  XM,  DQZTM, DWH from icdc_gx.V_JZGJBXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", "status"]
+    keys_list = ["number", "name", "status", "department_code"]
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
