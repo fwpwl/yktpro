@@ -61,7 +61,7 @@ def generate_random_fake_number(random_lenth=10, alphabet=ALPHABET):
         return ''.join(arr)
 
 
-def get_start_end_num_by_page(page=1, per_page_num=PER_PAGE_COUNT):
+def get_start_end_num_by_page(page=1, per_page_num=20):
     """
     根据page数量返回开始和结束 页码
     """
