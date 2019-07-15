@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*-
 from data_transfer.data_proxy_utils import OracleTransferHandler
 from data_transfer.utils.common_tools import cal_md5
+from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
 
 
 def is_valid_request(key):
     """
 
     """
-    if cal_md5(key) != '3c00eba4a059c0160c53ca37f2b795e9':
+    if key != cal_md5(get_now_datetime_str(FORMAT_DATE_WITHOUT_SEPARATOR)):
         return False
     return True
 
