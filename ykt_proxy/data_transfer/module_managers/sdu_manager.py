@@ -15,29 +15,28 @@ def get_client(func):
     """
 
     def wrapper():
-        conn = OracleTransferHandler(connect_str="user_yuketang/user_yuketang@172.16.8.70:1521/icdc")
+        conn = OracleTransferHandler(connect_str="VIEW_RC/SDDXsjzx_RC@202.194.14.34:1521/orcl")
         return func(conn)
 
     return wrapper
 
 
 @get_client
-def sdu_get_bks_data(db):
-    statement = "select XH,  XM,  YXSH,  ZYM,  SZBH,  SZNJ,  RXNY,  XZ,  XSDQZTM from icdc_gx.V_XSJBXX_BKS"
+def sdu_get_department_data(db):
+    statement = "select DWH, DWMC from VIEW_ZJK.V_RC_XYXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", 'department_code', 'major_code', 'tra_class_code', 'term',
-                 'come_in_year', 'xuezhi', 'current_status_code']
+    keys_list = ["department_code", "department_name"]
     user_info_data = query_data_to_dict_list(data_list, keys_list)
 
     return user_info_data
 
 
 @get_client
-def sdu_get_yjs_data(db):
-    statement = "select XH,  XM,  YXSH,  ZYM,  SZBH,  SZNJ,  RXNY,  XZ,  XSDQZTM from icdc_gx.V_XSJBXX_YJS"
+def sdu_get_student_data(db):
+    statement = "select XH, XM, DWMC, SF, RXXN, RXXQ, SZBH from VIEW_ZJK.V_RC_XSXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", 'department_code', 'major_code', 'tra_class_code', 'term',
-                 'come_in_year', 'xuezhi', 'current_status_code']
+    keys_list = ["number", "name", 'department_name', 'user_type', 'year', 'term',
+                 'tra_class_name']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -46,54 +45,9 @@ def sdu_get_yjs_data(db):
 
 @get_client
 def sdu_get_teacher_data(db):
-    statement = "select GH,  XM,  DQZTM, DWH from icdc_gx.V_JZGJBXX"
+    statement = "select GH, XM, DWMC, SF from VIEW_ZJK.V_RC_JZGXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", "status", "department_code"]
-
-    final_info_list = query_data_to_dict_list(data_list, keys_list)
-
-    return final_info_list
-
-
-# -----------------------  学院.专业.班级 数据 -----------------------
-@get_client
-def sdu_get_department_data(db):
-    statement = "select UNIT_ID, UNIT_NAME from icdc_gx.V_ZZJGXX"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_id", "department_name"]
-    final_info_list = query_data_to_dict_list(data_list, keys_list)
-    return final_info_list
-
-
-@get_client
-def sdu_get_bks_major_data(db):
-    statement = "select ZYH,  ZYMC,  ZYJC  from icdc_gx.V_ZYXX_BKS"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["major_code", "major_name", 'major_short_name']
-
-    final_info_list = query_data_to_dict_list(data_list, keys_list)
-
-    return final_info_list
-
-
-@get_client
-def sdu_get_yjs_major_data(db):
-    statement = "select ZYH,  ZYMC,  ZYJC  from icdc_gx.V_ZYXX_YJS"
-
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["major_code", "major_name", 'major_short_name']
-
-    final_info_list = query_data_to_dict_list(data_list, keys_list)
-
-    return final_info_list
-
-
-@get_client
-def sdu_get_tradition_class_data(db):
-    statement = "select DWH, BH,  BJ,  SSNJ, SSZY  from icdc_gx.V_BJXX_BKS"
-
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_code", "classroom_code", "classroom_name", 'term', 'major_code']
+    keys_list = ["number", "name", "department", "user_type"]
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -102,11 +56,11 @@ def sdu_get_tradition_class_data(db):
 
 # -----------------------  选课 数据 -----------------------
 @get_client
-def sdu_get_bks_choose_classroom_data(db):
-    statement = "select  XH,   XKKH,  KCB from icdc_gx.V_PKXX_BKS"
+def sdu_get_course_data(db):
+    statement = "select KCH, KCMC, KXH, JSGH, DWMC, KKXND, KKXQ from VIEW_ZJK.V_RC_BXQKKXXB"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["student_number", "classroom_code", 'classroom_table']
+    keys_list = ["course_code", "course_name", 'classroom_code', "teacher_number", "department", "year", "term"]
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -114,24 +68,11 @@ def sdu_get_bks_choose_classroom_data(db):
 
 
 @get_client
-def sdu_get_teacher_choose_classroom_data(db):
-    statement = "select  XKKCH,   KCH,  SJKCMC,  KKYX, JSGH, JSXM from icdc_gx.V_PKXX_JZ"
+def sdu_get_choose_data(db):
+    statement = "select KXH, KCH, XH from VIEW_ZJK.V_RC_BXQXKSJB"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["course_code", "classroom_code", 'course_name',
-                 'department_code', 'teacher_number', 'teacher_name']
-    final_info_list = query_data_to_dict_list(data_list, keys_list)
-
-    return final_info_list
-
-
-@get_client
-def sdu_get_yjs_choose_classroom_data(db):
-    statement = "select  XH,   XN,  XQ,  RKJSGH, KCDM, KCMC,SKBJ, XKH from icdc_gx.V_PKXX_YJS"
-
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["student_number", "year", 'term',
-                 'teacher_number', 'course_code', 'course_name', 'tra_classroom', 'classroom_code']
+    keys_list = ["classroom_code", "course_code", 'student_number']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
     return final_info_list
