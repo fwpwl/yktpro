@@ -9,6 +9,7 @@ def is_valid_request(key):
     """
     if cal_md5(key) != '3c00eba4a059c0160c53ca37f2b795e9':
         return False
+    return True
 
 
 def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
