@@ -22,7 +22,7 @@ def get_client(func):
 
 
 @get_client
-def zufe_get_bks_data(db):
+def sdu_get_bks_data(db):
     statement = "select XH,  XM,  YXSH,  ZYM,  SZBH,  SZNJ,  RXNY,  XZ,  XSDQZTM from icdc_gx.V_XSJBXX_BKS"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", 'department_code', 'major_code', 'tra_class_code', 'term',
@@ -33,7 +33,7 @@ def zufe_get_bks_data(db):
 
 
 @get_client
-def zufe_get_yjs_data(db):
+def sdu_get_yjs_data(db):
     statement = "select XH,  XM,  YXSH,  ZYM,  SZBH,  SZNJ,  RXNY,  XZ,  XSDQZTM from icdc_gx.V_XSJBXX_YJS"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", 'department_code', 'major_code', 'tra_class_code', 'term',
@@ -45,7 +45,7 @@ def zufe_get_yjs_data(db):
 
 
 @get_client
-def zufe_get_teacher_data(db):
+def sdu_get_teacher_data(db):
     statement = "select GH,  XM,  DQZTM, DWH from icdc_gx.V_JZGJBXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", "status", "department_code"]
@@ -57,7 +57,7 @@ def zufe_get_teacher_data(db):
 
 # -----------------------  学院.专业.班级 数据 -----------------------
 @get_client
-def zufe_get_department_data(db):
+def sdu_get_department_data(db):
     statement = "select UNIT_ID, UNIT_NAME from icdc_gx.V_ZZJGXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_id", "department_name"]
@@ -66,7 +66,7 @@ def zufe_get_department_data(db):
 
 
 @get_client
-def zufe_get_bks_major_data(db):
+def sdu_get_bks_major_data(db):
     statement = "select ZYH,  ZYMC,  ZYJC  from icdc_gx.V_ZYXX_BKS"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["major_code", "major_name", 'major_short_name']
@@ -77,7 +77,7 @@ def zufe_get_bks_major_data(db):
 
 
 @get_client
-def zufe_get_yjs_major_data(db):
+def sdu_get_yjs_major_data(db):
     statement = "select ZYH,  ZYMC,  ZYJC  from icdc_gx.V_ZYXX_YJS"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
@@ -89,7 +89,7 @@ def zufe_get_yjs_major_data(db):
 
 
 @get_client
-def zufe_get_tradition_class_data(db):
+def sdu_get_tradition_class_data(db):
     statement = "select DWH, BH,  BJ,  SSNJ, SSZY  from icdc_gx.V_BJXX_BKS"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
@@ -102,7 +102,7 @@ def zufe_get_tradition_class_data(db):
 
 # -----------------------  选课 数据 -----------------------
 @get_client
-def zufe_get_bks_choose_classroom_data(db):
+def sdu_get_bks_choose_classroom_data(db):
     statement = "select  XH,   XKKH,  KCB from icdc_gx.V_PKXX_BKS"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
@@ -114,7 +114,7 @@ def zufe_get_bks_choose_classroom_data(db):
 
 
 @get_client
-def zufe_get_teacher_choose_classroom_data(db):
+def sdu_get_teacher_choose_classroom_data(db):
     statement = "select  XKKCH,   KCH,  SJKCMC,  KKYX, JSGH, JSXM from icdc_gx.V_PKXX_JZ"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
@@ -126,7 +126,7 @@ def zufe_get_teacher_choose_classroom_data(db):
 
 
 @get_client
-def zufe_get_yjs_choose_classroom_data(db):
+def sdu_get_yjs_choose_classroom_data(db):
     statement = "select  XH,   XN,  XQ,  RKJSGH, KCDM, KCMC,SKBJ, XKH from icdc_gx.V_PKXX_YJS"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
