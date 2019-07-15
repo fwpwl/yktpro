@@ -34,17 +34,23 @@ def json_http_response(content):
     """
     return HttpResponse(json.dumps(content), content_type="application/json;encoding=utf-8")
 
+def success_response(data):
+    content = {
+        "success": True,
+        "msg": "success!",
+        "data": data
+    }
+    return json_http_response(content)
 
-def file_http_response(file_path):
-    """
-    文件返回HttpResponse
-    """
-    from rexec import FileWrapper
-    wrapper = FileWrapper(file(file_path))
-    response = HttpResponse(wrapper, content_type='text/plain')
-    response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(file_path)
-    response['Content-Length'] = os.path.getsize(file_path)
-    return response
+
+def error_response(msg, data={}):
+    content = {
+        "success": False,
+        "msg": msg,
+        "data": data,
+    }
+    return json_http_response(content)
+
 
 
 def query_dict_to_dict(query_dict):

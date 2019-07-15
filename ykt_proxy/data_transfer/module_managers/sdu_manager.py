@@ -1,5 +1,14 @@
 # -*- coding:utf-8 -*-
 from data_transfer.data_proxy_utils import OracleTransferHandler
+from data_transfer.utils.common_tools import cal_md5
+
+
+def is_valid_request(key):
+    """
+
+    """
+    if cal_md5(key) != '3c00eba4a059c0160c53ca37f2b795e9':
+        return False
 
 
 def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
