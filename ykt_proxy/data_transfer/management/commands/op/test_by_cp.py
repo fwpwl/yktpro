@@ -5,6 +5,8 @@
 import psycopg2
 from django.core.management import BaseCommand
 
+from data_transfer.data_proxy_utils import MySQLTransferHandler
+
 
 class Command(BaseCommand):
     def __init__(self):
@@ -14,10 +16,14 @@ class Command(BaseCommand):
         """
         python manage.py exec test_by_cp
         """
-        a = [1, 2, 3]
-        b = [11, 22, 33]
-        c = dict(zip(a, b))
+        conn = MySQLTransferHandler(host="202.204.193.168",
+                                    port=3306,
+                                    user="ykt_new",
+                                    password="Yktnew2019",
+                                    database="ykt")
 
+        statement = "select XYMC, XYDW from T_BZKS_XY"
+        data_list = conn.get_raw_data_by_statement(statement=statement, var_tuple=None)
 
         # conn = psycopg2.connect(database="datacenter", user="readonly", password="readonly", host="10.155.10.180", port="5432")
         # cursor = conn.cursor()

@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from data_transfer.data_proxy_utils import OracleTransferHandler
+from data_transfer.data_proxy_utils import MySQLTransferHandler
 from data_transfer.utils.common_tools import cal_md5
 from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
 
@@ -26,7 +26,11 @@ def get_client(func):
     """
 
     def wrapper():
-        conn = OracleTransferHandler(connect_str="VIEW_RC/SDDXsjzx_RC@202.194.14.34:1521/orcl")
+        conn = MySQLTransferHandler(host="202.204.193.168",
+                                    port=3306,
+                                    user="ykt_new",
+                                    password="Yktnew2019",
+                                    database="ykt")
         return func(conn)
 
     return wrapper
