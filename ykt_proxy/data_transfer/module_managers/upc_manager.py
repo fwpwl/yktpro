@@ -38,7 +38,7 @@ def get_client(func):
 
 @get_client
 def upc_get_department_data(db):
-    statement = "select DWH, DWMC from VIEW_ZJK.V_RC_XYXX"
+    statement = "select XYMC, XYDM from T_BZKS_XY"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_code", "department_name"]
     user_info_data = query_data_to_dict_list(data_list, keys_list)
@@ -47,11 +47,20 @@ def upc_get_department_data(db):
 
 
 @get_client
-def upc_get_student_data(db):
-    statement = "select XH, XM, DWMC, SF, RXXN, RXXQ, SZBH from VIEW_ZJK.V_RC_XSXX"
+def upc_get_tradition_classroom_data(db):
+    statement = "select BJMC, SSXY, RXXN from XZBJB"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", 'department_name', 'user_type', 'year', 'term',
-                 'tra_class_name']
+    keys_list = ["tra_class_name", "department_name", "year"]
+    user_info_data = query_data_to_dict_list(data_list, keys_list)
+
+    return user_info_data
+
+
+@get_client
+def upc_get_student_data(db):
+    statement = "select XH, RXXN, SSXY, XZBJMC, SF from XSXXB"
+    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    keys_list = ["number", "year", 'department_name', 'tra_class_name', 'user_type']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -60,7 +69,7 @@ def upc_get_student_data(db):
 
 @get_client
 def upc_get_teacher_data(db):
-    statement = "select GH, XM, DWMC, SF from VIEW_ZJK.V_RC_JZGXX"
+    statement = "select ZGH, XM, SSXY, SF from JSXXB"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", "department", "user_type"]
 
@@ -72,10 +81,10 @@ def upc_get_teacher_data(db):
 # -----------------------  选课 数据 -----------------------
 @get_client
 def upc_get_course_data(db):
-    statement = "select KCH, KCMC, KXH, JSGH, DWMC, KKXND, KKXQ from VIEW_ZJK.V_RC_BXQKKXXB"
-
+    statement = "select KCMC, KCH, KCBJMC, KXH, JSGH, SSXY, KKXN, KKXQ from BXQKKXXB"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["course_code", "course_name", 'classroom_code', "teacher_number", "department", "year", "term"]
+    keys_list = ["number", "name", 'department_name', 'user_type', 'year', 'term',
+                 'tra_class_name']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 

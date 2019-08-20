@@ -22,7 +22,7 @@ class Command(BaseCommand):
                                     password="Yktnew2019",
                                     database="ykt")
 
-        statement = "select XYMC, XYDW from T_BZKS_XY"
+        statement = "select XYMC, XYDM from T_BZKS_XY"
         data_list = conn.get_raw_data_by_statement(statement=statement, var_tuple=None)
 
         # conn = psycopg2.connect(database="datacenter", user="readonly", password="readonly", host="10.155.10.180", port="5432")
