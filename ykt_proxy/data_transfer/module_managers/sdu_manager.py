@@ -33,7 +33,7 @@ def get_client(func):
 
 
 @get_client
-def sdu_get_department_data(db):
+def upc_get_department_data(db):
     statement = "select DWH, DWMC from VIEW_ZJK.V_RC_XYXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_code", "department_name"]
@@ -43,7 +43,7 @@ def sdu_get_department_data(db):
 
 
 @get_client
-def sdu_get_student_data(db):
+def upc_get_student_data(db):
     statement = "select XH, XM, DWMC, SF, RXXN, RXXQ, SZBH from VIEW_ZJK.V_RC_XSXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", 'department_name', 'user_type', 'year', 'term',
@@ -55,7 +55,7 @@ def sdu_get_student_data(db):
 
 
 @get_client
-def sdu_get_teacher_data(db):
+def upc_get_teacher_data(db):
     statement = "select GH, XM, DWMC, SF from VIEW_ZJK.V_RC_JZGXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", "department", "user_type"]
@@ -67,7 +67,7 @@ def sdu_get_teacher_data(db):
 
 # -----------------------  选课 数据 -----------------------
 @get_client
-def sdu_get_course_data(db):
+def upc_get_course_data(db):
     statement = "select KCH, KCMC, KXH, JSGH, DWMC, KKXND, KKXQ from VIEW_ZJK.V_RC_BXQKKXXB"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
@@ -79,7 +79,7 @@ def sdu_get_course_data(db):
 
 
 @get_client
-def sdu_get_choose_data(db):
+def upc_get_choose_data(db):
     statement = "select KXH, KCH, XH from VIEW_ZJK.V_RC_BXQXKSJB"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)

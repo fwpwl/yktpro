@@ -11,5 +11,5 @@ urlpatterns = [
 # 分层各模块URL
 urlpatterns += [
     # 学校教务系统验证模块
-    url(r"^sdu/", include("data_transfer.module_urls.sdu_urls")),
+    url(r"^upc/", include("data_transfer.module_urls.upc_urls")),
 ]
