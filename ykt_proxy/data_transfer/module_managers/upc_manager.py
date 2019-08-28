@@ -93,10 +93,10 @@ def upc_get_course_data(db):
 
 @get_client
 def upc_get_choose_data(db):
-    statement = "select KXH, KCH, XH from VIEW_ZJK.V_RC_BXQXKSJB"
+    statement = "select XH, KXH from BXQXKSJB"
 
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["classroom_code", "course_code", 'student_number']
+    keys_list = ['student_number', "classroom_code"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
     return final_info_list
