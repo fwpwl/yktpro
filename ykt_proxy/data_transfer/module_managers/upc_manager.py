@@ -8,7 +8,7 @@ def is_valid_request(key):
     """
 
     """
-    if key != cal_md5(get_now_datetime_str(FORMAT_DATE_WITHOUT_SEPARATOR)):
+    if not key or key != cal_md5(get_now_datetime_str(FORMAT_DATE_WITHOUT_SEPARATOR)):
         return False
     return True
 
