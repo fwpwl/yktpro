@@ -28,8 +28,8 @@ def get_client(func):
     def wrapper():
         conn = MySQLTransferHandler(host="111.114.174.30",
                                     port=3306,
-                                    user="root",
-                                    password="yuketang",
+                                    user="ykt_new",
+                                    password="Ykt2019",
                                     database="ykt")
         return func(conn)
 
@@ -98,7 +98,7 @@ def nwu_bks_get_choose_data(db):
 # ---------------------------------------------------------------------------------
 @get_client
 def nwu_yjs_get_department_data(db):
-    statement = "select id, BH, MC from bks_departmentz_info"
+    statement = "select id, BH, MC from yjs_department"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_id", "department_code", "department_name"]
     user_info_data = query_data_to_dict_list(data_list, keys_list)
@@ -108,7 +108,7 @@ def nwu_yjs_get_department_data(db):
 
 @get_client
 def nwu_yjs_get_student_data(db):
-    statement = "select department, code, name, type, year, term from yjs_student_info"
+    statement = "select department, code, name, type, year, team from yjs_student_info"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_code", "number", "name", "type", "year", "term"]
 
