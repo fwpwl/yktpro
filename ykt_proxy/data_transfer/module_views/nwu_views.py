@@ -1,7 +1,8 @@
 # coding:utf-8
-from data_transfer.module_managers.ynu_manager import is_valid_request, nwu_bks_get_department_data, \
+from data_transfer.module_managers.nwu_manager import is_valid_request, nwu_bks_get_department_data, \
     nwu_bks_get_tra_classroom_data, nwu_bks_get_student_data, nwu_bks_get_teacher_data, nwu_bks_get_choose_data, \
     nwu_yjs_get_department_data, nwu_yjs_get_student_data, nwu_yjs_get_course_data, nwu_yjs_get_choose_data
+
 from data_transfer.utils.network import success_response, get_para_from_request_safe, error_response
 
 
