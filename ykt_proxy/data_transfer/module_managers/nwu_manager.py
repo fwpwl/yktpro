@@ -26,10 +26,10 @@ def get_client(func):
     """
 
     def wrapper():
-        conn = MySQLTransferHandler(host="113.55.14.21",
+        conn = MySQLTransferHandler(host="111.114.174.30",
                                     port=3306,
-                                    user="ykt",
-                                    password="Ykt2019",
+                                    user="root",
+                                    password="yuketang",
                                     database="ykt")
         return func(conn)
 
