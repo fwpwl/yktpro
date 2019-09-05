@@ -1,4 +1,8 @@
 # -*- coding:utf-8 -*-
+import json
+
+import requests
+
 from data_transfer.data_proxy_utils import MySQLTransferHandler
 from data_transfer.utils.common_tools import cal_md5
 from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
@@ -34,6 +38,28 @@ def get_client(func):
         return func(conn)
 
     return wrapper
+
+
+def is_user_valid(user_name, password):
+    """
+
+    """
+    user_name = '1582'
+    password = 'pf170910'
+    headers = {"Content-Type": "application/json"}
+    verify_url = 'http://202.204.193.169/login.php'
+    client = requests.Session()
+    # client.headers.update(headers)
+    login_data = {"username": user_name,
+                  "password": password}
+    response = client.post(verify_url, data=login_data, timeout=10)
+    print(response.content)
+    a = json.loads(response.text)
+    print(type(a))
+    print(a)
+    if a.get('message') == u'登陆成功' and int(a.get('error_code')) == 0:
+        print('success')
+        return True
 
 
 @get_client
