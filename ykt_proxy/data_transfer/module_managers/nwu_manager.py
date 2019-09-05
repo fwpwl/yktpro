@@ -119,9 +119,9 @@ def nwu_yjs_get_student_data(db):
 
 @get_client
 def nwu_yjs_get_course_data(db):
-    statement = "select gh, xm, dwmc from yjs_teacher_course_info"
+    statement = "select gh, xm, dwmc, id, kcmc, xn, xq from yjs_teacher_course_info"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", "department"]
+    keys_list = ["number", "name", "department", 'course_code', 'course_name', 'year', 'term']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
