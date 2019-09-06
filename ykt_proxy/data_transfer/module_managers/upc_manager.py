@@ -113,8 +113,8 @@ def upc_bks_get_teacher_data(db):
 def upc_bks_get_course_data(db):
     statement = "select KCMC, KCH, KCBJMC, KXH, JSGH, SSXY, KKXN, KKXQ from BXQKKXXB"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", 'department_name', 'user_type', 'year', 'term',
-                 'tra_class_name']
+    keys_list = ["course_name", "course_code", 'classroom_code', 'classroom_series_code', 'teacher_number',
+                 'department_code', 'year', 'term']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -133,9 +133,8 @@ def upc_bks_get_choose_data(db):
 
 
 # ---------------------------------------------------------------------------------
-# 本科生数据
+# 研究生数据
 # ---------------------------------------------------------------------------------
-
 
 @get_client
 def upc_yjs_get_department_data(db):
@@ -173,8 +172,8 @@ def upc_yjs_get_teacher_data(db):
 def upc_yjs_get_course_data(db):
     statement = "select KCMC, KCH, KCBJMC, KXH, JSGH, SSXY, KKXN, KKXQ from T_YJS_KKXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", 'department_name', 'user_type', 'year', 'term',
-                 'tra_class_name']
+    keys_list = ["course_name", "course_code", 'classroom_code', 'classroom_series_code', 'teacher_number',
+                 'department_code', 'year', 'term']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
