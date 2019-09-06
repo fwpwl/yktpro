@@ -107,7 +107,7 @@ def cal_md5(value, num=None):
     try:
         value = str(value)
         sha1 = hashlib.md5()
-        sha1.update(value)
+        sha1.update(value.encode("utf8"))
         result = sha1.hexdigest()
         if num:
             num = int(num)
