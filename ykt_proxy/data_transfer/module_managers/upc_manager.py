@@ -42,24 +42,19 @@ def get_client(func):
 
 def is_user_valid(user_name, password):
     """
-
+    PARA:
+    user_name='1582'
+    password='pf170910'
     """
-    user_name = '1582'
-    password = 'pf170910'
-    headers = {"Content-Type": "application/json"}
     verify_url = 'http://202.204.193.169/login.php'
     client = requests.Session()
-    # client.headers.update(headers)
     login_data = {"username": user_name,
                   "password": password}
     response = client.post(verify_url, data=login_data, timeout=10)
-    print(response.content)
-    a = json.loads(response.text)
-    print(type(a))
-    print(a)
-    if a.get('message') == u'登陆成功' and int(a.get('error_code')) == 0:
-        print('success')
+    result_dict = json.loads(response.text)
+    if result_dict.get('message') == u'登陆成功' and int(a.get('error_code')) == 0:
         return True
+    return False
 
 
 # ---------------------------------------------------------------------------------

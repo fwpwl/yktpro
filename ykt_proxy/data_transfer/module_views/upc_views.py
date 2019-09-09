@@ -14,8 +14,11 @@ def upc_verify_user_view(request):
     user_name = get_para_from_request_safe(request, 'user_name')
     password = get_para_from_request_safe(request, 'password')
 
-    ret_data = is_user_valid(user_name, password)
-    return success_response(ret_data)
+    is_valid = is_user_valid(user_name, password)
+    if is_valid:
+        return success_response({})
+    else:
+        return error_response(u'用户名密码错误!')
 
 
 # ---------------------------------------------------------------------------------
