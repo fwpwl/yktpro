@@ -148,9 +148,9 @@ def upc_yjs_get_department_data(db):
 
 @get_client
 def upc_yjs_get_student_data(db):
-    statement = "select XH, SXXY, RXXN, SF from T_YJS"
+    statement = "select XH, SXXY, RXXN, SF, XM from T_YJS"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", 'department_name', "year", 'user_type']
+    keys_list = ["number", 'department_name', "year", 'user_type', 'name']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -159,9 +159,9 @@ def upc_yjs_get_student_data(db):
 
 @get_client
 def upc_yjs_get_teacher_data(db):
-    statement = "select ZGH, XM, SSXY, SF from T_YJS_JS"
+    statement = "select ZGH, XM, SSXY, SF , XM from T_YJS_JS"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", "department", "user_type"]
+    keys_list = ["number", "name", "department", "user_type", 'name']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
