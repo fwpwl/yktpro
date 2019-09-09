@@ -52,7 +52,7 @@ def is_user_valid(user_name, password):
                   "password": password}
     response = client.post(verify_url, data=login_data, timeout=10)
     result_dict = json.loads(response.text)
-    if result_dict.get('message') == u'登陆成功' and int(a.get('error_code')) == 0:
+    if result_dict.get('message') == u'登陆成功' and int(result_dict.get('error_code')) == 0:
         return True
     return False
 

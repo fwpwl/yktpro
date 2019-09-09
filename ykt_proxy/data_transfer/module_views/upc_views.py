@@ -1,5 +1,7 @@
 # coding:utf-8
 
+from django.views.decorators.csrf import csrf_exempt
+
 from data_transfer.module_managers.upc_manager import is_user_valid, is_valid_request, upc_bks_get_department_data, \
     upc_bks_get_course_data, upc_bks_get_teacher_data, upc_bks_get_choose_data, upc_bks_get_student_data, \
     upc_bks_get_tradition_classroom_data, upc_yjs_get_course_data, upc_yjs_get_choose_data, upc_yjs_get_teacher_data, \
@@ -7,9 +9,10 @@ from data_transfer.module_managers.upc_manager import is_user_valid, is_valid_re
 from data_transfer.utils.network import success_response, get_para_from_request_safe, error_response
 
 
+@csrf_exempt
 def upc_verify_user_view(request):
     """
-    URL[GET]:/data/upc/verify_user/
+    URL[POST]:/data/upc/verify_user/
     """
     user_name = get_para_from_request_safe(request, 'user_name')
     password = get_para_from_request_safe(request, 'password')
