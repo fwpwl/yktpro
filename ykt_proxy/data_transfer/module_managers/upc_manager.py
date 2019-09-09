@@ -170,7 +170,7 @@ def upc_yjs_get_teacher_data(db):
 
 @get_client
 def upc_yjs_get_course_data(db):
-    statement = "select KCMC, KCH, KCBJMC, KXH, JSGH, SSXY, KKXN, KKXQ from T_YJS_KKXX"
+    statement = "select KCMC, KCH, KCBJMC, KXH, JSGH, SSYX, KKXN, KKXQ from T_YJS_KKXX"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["course_name", "course_code", 'classroom_code', 'classroom_series_code', 'teacher_number',
                  'department_code', 'year', 'term']
