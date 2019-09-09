@@ -70,7 +70,7 @@ def is_user_valid(user_name, password):
 def upc_bks_get_department_data(db):
     statement = "select XYMC, XYDM from T_BZKS_XY"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_code", "department_name"]
+    keys_list = ["department_name", "department_code"]
     user_info_data = query_data_to_dict_list(data_list, keys_list)
 
     return user_info_data
@@ -140,7 +140,7 @@ def upc_bks_get_choose_data(db):
 def upc_yjs_get_department_data(db):
     statement = "select XYMC, XYDM from T_YJS_XY"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_code", "department_name"]
+    keys_list = ["department_name", "department_code"]
     user_info_data = query_data_to_dict_list(data_list, keys_list)
 
     return user_info_data
