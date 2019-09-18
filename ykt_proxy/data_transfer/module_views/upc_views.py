@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from data_transfer.module_managers.upc_manager import is_user_valid, is_valid_request, upc_bks_get_department_data, \
     upc_bks_get_course_data, upc_bks_get_teacher_data, upc_bks_get_choose_data, upc_bks_get_student_data, \
-    upc_bks_get_tradition_classroom_data, upc_yjs_get_course_data, upc_yjs_get_choose_data, upc_yjs_get_teacher_data, \
+    upc_bks_get_tradition_classroom_data, upc_yjs_get_course_data, upc_yjs_get_choose_data, \
     upc_yjs_get_student_data, upc_yjs_get_department_data
 from data_transfer.utils.network import success_response, get_para_from_request_safe, error_response
 
@@ -123,18 +123,6 @@ def upc_yjs_get_student_data_view(request):
         return error_response('无效的请求!')
 
     ret_data = upc_yjs_get_student_data()
-    return success_response(ret_data)
-
-
-def upc_yjs_get_teacher_data_view(request):
-    """
-    URL[GET]:/data/upc/upc_yjs_get_teacher_data/
-    """
-    key = get_para_from_request_safe(request, 'key')
-    if not is_valid_request(key):
-        return error_response('无效的请求!')
-
-    ret_data = upc_yjs_get_teacher_data()
     return success_response(ret_data)
 
 
