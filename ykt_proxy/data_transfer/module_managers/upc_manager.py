@@ -143,9 +143,9 @@ def upc_yjs_get_department_data(db):
 
 @get_client
 def upc_yjs_get_student_data(db):
-    statement = "select XH, RXXN, SF, XM from T_YJS"
+    statement = "select XH, RXXN, SF, XM, YX  from T_YJS"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "year", 'user_type', 'name']
+    keys_list = ["number", "year", 'user_type', 'name', 'department_code']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
