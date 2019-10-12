@@ -21,73 +21,45 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
     return final_list
 
 
-def get_client(func):
+def get_client():
     """
     """
-
-    def wrapper():
-        conn = MySQLTransferHandler(host="111.114.174.30",
-                                    port=3306,
-                                    user="ykt_new",
-                                    password="Ykt2019",
-                                    database="ykt")
-        return func(conn)
-
-    return wrapper
+    conn = MySQLTransferHandler(host="111.114.174.30",
+                                port=3306,
+                                user="ykt_new",
+                                password="Ykt2019",
+                                database="ykt")
+    return conn
 
 
 # ---------------------------------------------------------------------------------
 # 本科生基本数据
 # ---------------------------------------------------------------------------------
-
-@get_client
-def nwu_bks_get_department_data(db):
-    statement = "select code, department_name  from bks_departmentz_info"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_code", "department_name"]
-    user_info_data = query_data_to_dict_list(data_list, keys_list)
-
-    return user_info_data
-
-
-@get_client
-def nwu_bks_get_tra_classroom_data(db):
-    statement = "select yxdm, bh, bjmc from bks_class_info"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_code", "bh", 'name']
+def nwu_bks_get_student_data():
+    statement = "select XGH, XM, YX, BJMC, RXRQ, SFLB from T_RYXX"
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    keys_list = ["number", "name", 'department', 'tradition_class', 'year', 'user_type']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
     return final_info_list
 
 
-@get_client
-def nwu_bks_get_student_data(db):
-    statement = "select xh, xm, yx, bh from bks_student_info"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", 'department_code', 'tradition_class_id']
-
-    final_info_list = query_data_to_dict_list(data_list, keys_list)
-
-    return final_info_list
-
-
-@get_client
-def nwu_bks_get_teacher_data(db):
-    statement = "select gh, xm, dwmc, id, kcmc, xn, xq from bks_teacher_course_info"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", "department", 'course_code', 'course_name', 'year', 'term']
+def nwu_bks_get_course_data():
+    statement = "select JSGH, JSXM, YX, KCH, KCMC, XN, XQ, XKH, BJMC from T_BKS_KCXX where XN={} and XQ={}"
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    keys_list = ["number", "name", "department", 'course_code', 'course_name', 'year', 'term', 'classroom_code',
+                 'classroom_name']
     user_info_data = query_data_to_dict_list(data_list, keys_list)
 
     return user_info_data
 
 
-@get_client
-def nwu_bks_get_choose_data(db):
-    statement = "select id, kcbh, gh,xh from bks_choose_course"
+def nwu_bks_get_choose_data():
+    statement = "select KXH, XH from T_BKS_XK"
 
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ['course_code', 'kcbh', "teacher_number", "student_number"]
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    keys_list = ['classroom_code', "student_number"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
     return final_info_list
@@ -96,43 +68,21 @@ def nwu_bks_get_choose_data(db):
 # ---------------------------------------------------------------------------------
 # 研究生基本数据
 # ---------------------------------------------------------------------------------
-@get_client
-def nwu_yjs_get_department_data(db):
-    statement = "select id, BH, MC from yjs_department"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_id", "department_code", "department_name"]
-    user_info_data = query_data_to_dict_list(data_list, keys_list)
-
-    return user_info_data
-
-
-@get_client
-def nwu_yjs_get_student_data(db):
-    statement = "select department, code, name, type, year, team from yjs_student_info"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_code", "number", "name", "type", "year", "term"]
+def nwu_yjs_get_course_data():
+    statement = "select JSGH, JSXM, YX, KCH, KCMC,XN, XQ, BJMC, XKH from T_YJS_KCXX"
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    keys_list = ["number", "name", "department", 'course_code', 'course_name', 'year', 'term', 'classroom_name',
+                 'classroom_code']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
     return final_info_list
 
 
-@get_client
-def nwu_yjs_get_course_data(db):
-    statement = "select gh, xm, dwmc, id, kcmc, xn, xq from yjs_teacher_course_info"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["number", "name", "department", 'course_code', 'course_name', 'year', 'term']
-
-    final_info_list = query_data_to_dict_list(data_list, keys_list)
-
-    return final_info_list
-
-
-@get_client
-def nwu_yjs_get_choose_data(db):
-    statement = "select id, xh, kcbh, gh from yjs_choose_course"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["course_code", "student_number", "kcbh", 'teacher_number']
+def nwu_yjs_get_choose_data():
+    statement = "select WID, XH from T_YJS_XKB"
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    keys_list = ["classroom_code", 'student_number']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
