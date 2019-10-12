@@ -28,7 +28,10 @@ def nwu_bks_get_course_data_view(request):
     if not is_valid_request(key):
         return error_response('无效的请求!')
 
-    ret_data = nwu_bks_get_course_data()
+    year = get_para_from_request_safe(request, 'year')
+    term = get_para_from_request_safe(request, 'term')
+
+    ret_data = nwu_bks_get_course_data(year, term)
     return success_response(ret_data)
 
 

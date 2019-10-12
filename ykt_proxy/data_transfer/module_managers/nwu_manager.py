@@ -45,8 +45,8 @@ def nwu_bks_get_student_data():
     return final_info_list
 
 
-def nwu_bks_get_course_data():
-    statement = "select JSGH, JSXM, YX, KCH, KCMC, XN, XQ, XKH, BJMC from T_BKS_KCXX where XN={} and XQ={}"
+def nwu_bks_get_course_data(year, term):
+    statement = "select JSGH, JSXM, YX, KCH, KCMC, XN, XQ, XKH, BJMC from T_BKS_KCXX where XN='{}' and XQ='{}'".format(year, term)
     data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", "department", 'course_code', 'course_name', 'year', 'term', 'classroom_code',
                  'classroom_name']
