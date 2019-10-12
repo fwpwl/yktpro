@@ -68,8 +68,8 @@ def nwu_bks_get_choose_data():
 # ---------------------------------------------------------------------------------
 # 研究生基本数据
 # ---------------------------------------------------------------------------------
-def nwu_yjs_get_course_data():
-    statement = "select JSGH, JSXM, YX, KCH, KCMC,XN, XQ, BJMC, XKH from T_YJS_KCXX"
+def nwu_yjs_get_course_data(year, term):
+    statement = "select JSGH, JSXM, YX, KCH, KCMC,XN, XQ, BJMC, XKH from T_YJS_KCXX where XN='{}' AND XQ='{}'".format(year, term)
     data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", "department", 'course_code', 'course_name', 'year', 'term', 'classroom_name',
                  'classroom_code']

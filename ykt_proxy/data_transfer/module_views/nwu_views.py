@@ -22,7 +22,7 @@ def nwu_bks_get_student_data_view(request):
 
 def nwu_bks_get_course_data_view(request):
     """
-    URL[GET]:/data/nwu/nwu_bks_get_student_data/
+    URL[GET]:/data/nwu/nwu_bks_get_course_data/
     """
     key = get_para_from_request_safe(request, 'key')
     if not is_valid_request(key):
@@ -58,7 +58,10 @@ def nwu_yjs_get_course_data_view(request):
     if not is_valid_request(key):
         return error_response('无效的请求!')
 
-    ret_data = nwu_yjs_get_course_data()
+    year = get_para_from_request_safe(request, 'year')
+    term = get_para_from_request_safe(request, 'term')
+
+    ret_data = nwu_yjs_get_course_data(year, term)
     return success_response(ret_data)
 
 
