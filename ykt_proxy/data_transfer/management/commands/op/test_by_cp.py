@@ -6,6 +6,7 @@ import psycopg2
 from django.core.management import BaseCommand
 
 from data_transfer.data_proxy_utils import MySQLTransferHandler
+from data_transfer.module_managers.nxu_manager import get_client
 
 
 class Command(BaseCommand):
@@ -16,6 +17,12 @@ class Command(BaseCommand):
         """
         python manage.py exec test_by_cp
         """
+        statement = "select department_name, course_code, course_name, classroom_name,classroom_code, teacher_number, teacher_name , term from course"
+        statement = "select classroom_code, student_number, term from choose"
+        data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+
+
+
         conn = MySQLTransferHandler(host="202.204.193.168",
                                     port=3306,
                                     user="ykt_new",

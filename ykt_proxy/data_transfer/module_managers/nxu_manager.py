@@ -5,9 +5,6 @@ from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE
 
 
 def is_valid_request(key):
-    """
-
-    """
     if not key or key != cal_md5(get_now_datetime_str(FORMAT_DATE_WITHOUT_SEPARATOR)):
         return False
     return True
@@ -55,7 +52,7 @@ def nxu_get_teacher_data():
     return final_info_list
 
 
-def nxu_get_course_data(term):
+def nxu_get_course_data(term='2019-2020学年第1学期'):
     statement = "select department_name, course_code, course_name, classroom_name,classroom_code, teacher_number, teacher_name , term from course where term='{}'".format(term)
     data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "course_code", "course_name",
@@ -65,7 +62,7 @@ def nxu_get_course_data(term):
     return user_info_data
 
 
-def nxu_get_choose_data(term):
+def nxu_get_choose_data(term='2019-2020学年第1学期'):
     statement = "select classroom_code, student_number, term from choose where term='{}'".format(term)
 
     data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)

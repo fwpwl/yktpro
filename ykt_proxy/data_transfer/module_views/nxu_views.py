@@ -35,6 +35,9 @@ def nxu_get_teacher_data_view(request):
 def nxu_get_course_data_view(request):
     """
     URL[GET]:/data/nxu/nxu_get_course_data/
+
+    PARA:
+    term
     """
     key = get_para_from_request_safe(request, 'key')
     if not is_valid_request(key):
@@ -49,6 +52,9 @@ def nxu_get_course_data_view(request):
 def nxu_get_choose_data_view(request):
     """
     URL[GET]:/data/nxu/nxu_get_choose_data/
+
+    PARA:
+    term
     """
     key = get_para_from_request_safe(request, 'key')
     if not is_valid_request(key):
