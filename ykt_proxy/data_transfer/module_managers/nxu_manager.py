@@ -43,7 +43,7 @@ def nxu_get_student_data():
 
 
 def nxu_get_teacher_data():
-    statement = "select dept, name, zgh, user_type, from teacher"
+    statement = "select dept, name, zgh, user_type from teacher"
     data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ['department', "name", "number", 'user_type', ]
 
