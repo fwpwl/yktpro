@@ -12,4 +12,5 @@ urlpatterns = [
 urlpatterns += [
     # 学校教务系统验证模块
     url(r"^nxu/", include("data_transfer.module_urls.nxu_urls")),
+    url(r"^ynufe/", include("data_transfer.module_urls.ynufe_urls")),
 ]
