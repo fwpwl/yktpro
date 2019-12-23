@@ -4,7 +4,6 @@
 """
 import json
 
-import os
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse
 from django.test import Client
@@ -34,6 +33,7 @@ def json_http_response(content):
     """
     return HttpResponse(json.dumps(content), content_type="application/json;encoding=utf-8")
 
+
 def success_response(data):
     content = {
         "success": True,
@@ -50,7 +50,6 @@ def error_response(msg, data={}):
         "data": data,
     }
     return json_http_response(content)
-
 
 
 def query_dict_to_dict(query_dict):
