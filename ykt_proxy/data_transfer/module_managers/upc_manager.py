@@ -25,19 +25,15 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
     return final_list
 
 
-def get_client(func):
+def get_client():
     """
     """
-
-    def wrapper():
-        conn = MySQLTransferHandler(host="202.204.193.168",
-                                    port=3306,
-                                    user="ykt_new",
-                                    password="Yktnew2019",
-                                    database="ykt")
-        return func(conn)
-
-    return wrapper
+    conn = MySQLTransferHandler(host="202.204.193.168",
+                                port=3306,
+                                user="ykt_new",
+                                password="Yktnew2019",
+                                database="ykt")
+    return conn
 
 
 def is_user_valid(user_name, password):
@@ -60,31 +56,27 @@ def is_user_valid(user_name, password):
 # ---------------------------------------------------------------------------------
 # 本科生数据
 # ---------------------------------------------------------------------------------
-
-@get_client
-def upc_bks_get_department_data(db):
+def upc_bks_get_department_data():
     statement = "select XYMC, XYDM from T_DW"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "department_code"]
     user_info_data = query_data_to_dict_list(data_list, keys_list)
 
     return user_info_data
 
 
-@get_client
-def upc_bks_get_tradition_classroom_data(db):
+def upc_bks_get_tradition_classroom_data():
     statement = "select BJMC, SSXY, RXXN from T_BZKS_BJ"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["tra_class_name", "department_name", "year"]
     user_info_data = query_data_to_dict_list(data_list, keys_list)
 
     return user_info_data
 
 
-@get_client
-def upc_bks_get_student_data(db):
+def upc_bks_get_student_data():
     statement = "select XH, RXXN, SSXY, XZBJMC, SF, XM from T_BZKS"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "year", 'department_name', 'tra_class_name', 'user_type', 'name']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
@@ -92,10 +84,9 @@ def upc_bks_get_student_data(db):
     return final_info_list
 
 
-@get_client
-def upc_bks_get_teacher_data(db):
+def upc_bks_get_teacher_data():
     statement = "select ZGH, XM, SSXY, SF from T_JZG"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "name", "department", "user_type"]
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
@@ -104,10 +95,9 @@ def upc_bks_get_teacher_data(db):
 
 
 # -----------------------  选课 数据 -----------------------
-@get_client
-def upc_bks_get_course_data(db):
+def upc_bks_get_course_data():
     statement = "select KCMC, KCH, KCBJMC, KXH, JSGH, SSXY, KKXN, KKXQ from T_BZKS_KKXX"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["course_name", "course_code", 'classroom_code', 'classroom_series_code', 'teacher_number',
                  'department_code', 'year', 'term']
 
@@ -116,11 +106,10 @@ def upc_bks_get_course_data(db):
     return final_info_list
 
 
-@get_client
-def upc_bks_get_choose_data(db):
+def upc_bks_get_choose_data():
     statement = "select XH, KXH from T_BZKS_XK"
 
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ['student_number', "classroom_code"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -131,20 +120,19 @@ def upc_bks_get_choose_data(db):
 # 研究生数据
 # ---------------------------------------------------------------------------------
 
-@get_client
-def upc_yjs_get_department_data(db):
+
+def upc_yjs_get_department_data():
     statement = "select XYMC, XYDM from T_DW"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "department_code"]
     user_info_data = query_data_to_dict_list(data_list, keys_list)
 
     return user_info_data
 
 
-@get_client
-def upc_yjs_get_student_data(db):
+def upc_yjs_get_student_data():
     statement = "select XH, RXXN, SF, XM, YX  from T_YJS"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["number", "year", 'user_type', 'name', 'department_code']
 
     final_info_list = query_data_to_dict_list(data_list, keys_list)
@@ -152,10 +140,9 @@ def upc_yjs_get_student_data(db):
     return final_info_list
 
 
-@get_client
-def upc_yjs_get_course_data(db):
+def upc_yjs_get_course_data():
     statement = "select KCMC, KCH, KCBJMC, JSGH, SSXY, KKXN, KKXQ from T_YJS_KKXX"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["course_name", "course_code", 'classroom_code', 'teacher_number',
                  'department_code', 'year', 'term']
 
@@ -164,14 +151,11 @@ def upc_yjs_get_course_data(db):
     return final_info_list
 
 
-@get_client
-def upc_yjs_get_choose_data(db):
+def upc_yjs_get_choose_data():
     statement = "select XH, KXH from T_YJS_XK"
 
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ['student_number', "classroom_code"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
     return final_info_list
-
-
