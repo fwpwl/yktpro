@@ -35,7 +35,6 @@ class DataProxyBase(object):
         raise NotImplementedError
 
 
-
 class MySQLTransferHandler(object):
     def __init__(self, host, port, user, password, database):
         import pymysql
@@ -52,3 +51,10 @@ class MySQLTransferHandler(object):
         data_list = self.cursor.fetchall()
         return data_list
 
+    def get_row_count_by_statement(self, statement, var_tuple):
+        if var_tuple:
+            self.cursor.execute(statement, var_tuple)
+        else:
+            self.cursor.execute(statement)
+        data = self.cursor.fetchone()
+        return data

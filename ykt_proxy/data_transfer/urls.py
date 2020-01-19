@@ -15,4 +15,6 @@ urlpatterns += [
     url(r"^ynufe/", include("data_transfer.module_urls.ynufe_urls")),
     url(r"^nwu/", include("data_transfer.module_urls.nwu_urls")),
     url(r"^ynu/", include("data_transfer.module_urls.ynu_urls")),
+    # 西安科技
+    url(r"^xust/", include("data_transfer.module_urls.xust_urls")),
 ]
