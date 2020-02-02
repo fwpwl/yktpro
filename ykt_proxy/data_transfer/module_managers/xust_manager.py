@@ -62,19 +62,19 @@ def get_department_data(db, *args, **kwargs):
 
 
 @get_client
-def get_tra_classroom_data(db, year="2019", page=0, page_size=2000, *args, **kwargs):
+def get_tra_classroom_data(db, page=0, page_size=2000, *args, **kwargs):
     """
     行政班级数据
     """
-    count_sql = "select count(rxxn) from xzbjb where rxxn=%s"
-    count_data = db.get_row_count_by_statement(count_sql, var_tuple=(year,))
+    count_sql = "select count(rxxn) from xzbjb"
+    count_data = db.get_row_count_by_statement(count_sql, var_tuple=None)
     count = int(count_data[0])
     if count == 0:
         return dict(page_num=1, data=[])
     page_num = gen_total_pages(count, page_size)
     offset = page * page_size
-    statement = "select ssxy, zy, bjmc, rxxn from xzbjb where rxxn=%s limit %s  offset %s"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=(year, page_size, offset))
+    statement = "select ssxy, zy, bjmc, rxxn from xzbjb limit %s  offset %s"
+    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=(page_size, offset))
     keys_list = ["department_name", "major", 'tra_classroom_name', "year"]
 
     info_list = query_data_to_dict_list(data_list, keys_list)
@@ -104,19 +104,22 @@ def get_user_data(db, page=0, page_size=2000, *args, **kwargs):
 
 
 @get_client
-def get_course_data(db, year="2019", page=0, page_size=2000, *args, **kwargs):
+def get_course_data(db, year="2019", term=3, page=0, page_size=2000, *args, **kwargs):
     """
     课程数据
     """
-    count_sql = "select count(kkxn) from bxqkkxb where kkxn=%s"
-    count_data = db.get_row_count_by_statement(count_sql, var_tuple=(year,))
+    count_sql = "select count(kkxn) from bxqkkxb where kkxn=%s and kkxq=%s"
+    count_data = db.get_row_count_by_statement(count_sql, var_tuple=(year, term))
     count = int(count_data[0])
     if count == 0:
         return dict(page_num=1, data=[])
     page_num = gen_total_pages(count, page_size)
     offset = page * page_size
-    statement = "select ssxy, kcmc, kch, kcbjmc, xkh, jsgh, jsxm, kkxn, kkxq from bxqkkxb where kkxn=%s limit %s offset %s"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=(year, page_size, offset))
+    statement = """
+          select ssxy, kcmc, kch, kcbjmc, xkh, jsgh, jsxm, kkxn, kkxq 
+          from bxqkkxb where kkxn=%s and kkxq=%s limit %s offset %s
+    """
+    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=(year, term, page_size, offset))
     keys_list = (
         "department_name",
         'course_name',
@@ -134,19 +137,19 @@ def get_course_data(db, year="2019", page=0, page_size=2000, *args, **kwargs):
 
 
 @get_client
-def get_choose_data(db, year="2019", page=0, page_size=2000, *args, **kwargs):
+def get_choose_data(db, year="2019", term=3, page=0, page_size=2000, *args, **kwargs):
     """
     选课数据
     """
-    count_sql = "select count(kkxn) from bxqxkxxb where kkxn=%s"
-    count_data = db.get_row_count_by_statement(count_sql, var_tuple=(year,))
+    count_sql = "select count(kkxn) from bxqxkxxb where kkxn=%s and kkxq=%s"
+    count_data = db.get_row_count_by_statement(count_sql, var_tuple=(year, term))
     count = int(count_data[0])
     if count == 0:
         return dict(page_num=1, data=[])
     page_num = gen_total_pages(count, page_size)
     offset = page * page_size
-    statement = "select xkh, xh, kkxn, kkxq from bxqxkxxb where kkxn=%s limit %s  offset %s"
-    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=(year, page_size, offset))
+    statement = "select xkh, xh, kkxn, kkxq from bxqxkxxb where kkxn=%s and kkxq=%s limit %s  offset %s"
+    data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=(year, term, page_size, offset))
 
     keys_list = ['classroom_code', 'teacher_number', "year", 'term']
     info_list = query_data_to_dict_list(data_list, keys_list)

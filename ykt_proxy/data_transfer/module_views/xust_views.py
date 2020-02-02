@@ -32,8 +32,7 @@ def get_tra_classroom_data_view(request):
     #     return error_response('无效的请求!')
     page = int(request.GET.get("page", 0))
     page_size = int(request.GET.get("page_size", 2000))
-    year = request.GET.get("year", "2019")
-    ret_data = xust_manager.get_tra_classroom_data(year=year, page=page, page_size=page_size)
+    ret_data = xust_manager.get_tra_classroom_data(page=page, page_size=page_size)
     return success_response(ret_data)
 
 
@@ -62,7 +61,8 @@ def get_course_data_view(request):
     page = int(request.GET.get("page", 0))
     page_size = int(request.GET.get("page_size", 2000))
     year = request.GET.get("year", "2019")
-    ret_data = xust_manager.get_course_data(year=year, page=page, page_size=page_size)
+    term = request.GET.get("term", "3")
+    ret_data = xust_manager.get_course_data(year=year, term=term, page=page, page_size=page_size)
     return success_response(ret_data)
 
 
@@ -76,5 +76,6 @@ def get_choose_data_view(request):
     page = int(request.GET.get("page", 0))
     page_size = int(request.GET.get("page_size", 2000))
     year = request.GET.get("year", "2019")
-    ret_data = xust_manager.get_choose_data(year=year, page=page, page_size=page_size)
+    term = request.GET.get("term", "3")
+    ret_data = xust_manager.get_choose_data(year=year, term=term, page=page, page_size=page_size)
     return success_response(ret_data)

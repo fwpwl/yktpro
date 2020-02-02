@@ -2,3 +2,5 @@
 ### Files private to developers
 
 .idea/
+*.DS_Store
+*.DS_Store/
