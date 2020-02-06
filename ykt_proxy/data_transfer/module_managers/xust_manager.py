@@ -3,17 +3,6 @@
 西安科技大学
 """
 from data_transfer.data_proxy_utils import MySQLTransferHandler
-from data_transfer.utils.common_tools import cal_md5
-from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
-
-
-def is_valid_request(key):
-    """
-
-    """
-    if not key or key != cal_md5(get_now_datetime_str(FORMAT_DATE_WITHOUT_SEPARATOR)):
-        return False
-    return True
 
 
 def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
@@ -34,11 +23,13 @@ def gen_total_pages(count, page_size=500):
 
 def get_client(func):
     def wrapper(*args, **kwargs):
-        conn = MySQLTransferHandler(host="59.74.174.158",
-                                    port=3306,
-                                    user="root",
-                                    password="o5gwc8Dj?yel",
-                                    database="ykt")
+        conn = MySQLTransferHandler(
+            host="59.74.174.158",
+            port=3306,
+            user="root",
+            password="o5gwc8Dj?yel",
+            database="ykt"
+        )
         return func(conn, *args, **kwargs)
 
     return wrapper

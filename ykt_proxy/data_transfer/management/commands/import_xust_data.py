@@ -8,17 +8,14 @@ import datetime
 import itertools
 import requests
 from django.core.management import BaseCommand
+from django.utils.crypto import get_random_string
 from django.utils.encoding import force_text
+
+from data_transfer.utils.safe import make_signature
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-# ---------------------------------------------------------------------------------
-# 需要配置的常量: 每个学校需要配置的为下面这段(注意,跨学期时必须修改以下参数)
-# ---------------------------------------------------------------------------------
-
-
-YEAR = "2019"
-TERM = '1'
 
 # 学校的学期及对应开放时间
 SCHOOL_TERM_MAP = {
@@ -28,15 +25,15 @@ SCHOOL_TERM_MAP = {
 
 
 XUST_SERVER = "http://127.0.0.1:8080/data/xust"
-XUST_UNI_INFO_DICT = {"university_name": "西安科技大学",
-                      "university_province": "陕西省",
-                      "university_city": "西安市",
-                      "university_address": "西安市雁塔路58号",
-                      "university_url": "https://xust.yuketang.cn/",
-                      "current_term": "201802",
-                      "university_prefix": "xust",
-                      "rename_classroom_name_by_tradition_class": True,
-                      }
+XUST_UNI_INFO_DICT = {
+    "university_name": "西安科技大学",
+    "university_province": "陕西省",
+    "university_city": "西安市",
+    "university_address": "西安市雁塔路58号",
+    "university_url": "https://xust.yuketang.cn/",
+    "current_term": "201901",
+    "university_prefix": "xust"
+}
 
 
 def ensure_dir_exist_and_clean(dir_path):
@@ -191,7 +188,11 @@ def send_page_request(url, method="get", page=0, page_size=2000, params=None):
 
     params["page"] = page
     params["page_size"] = page_size
-    response = send_request(url, method=method, params=params)
+    new_params = {k: v for k, v in params.items() if k != "signature"}
+    signature = make_signature(**new_params)
+    new_params["signature"] = signature
+
+    response = send_request(url, method=method, params=new_params)
     if not response:
         return response
 
@@ -202,8 +203,11 @@ def send_page_request(url, method="get", page=0, page_size=2000, params=None):
     data_list = []
     data_list.extend(response.get("data", []))
     for page in range(1, page_num):
-        params["page"] = page
-        response = send_request(url, method=method, params=params)
+        new_params = {k: v for k, v in params.items() if k != "signature"}
+        new_params["page"] = page
+        signature = make_signature(**new_params)
+        new_params["signature"] = signature
+        response = send_request(url, method=method, params=new_params)
         if not response:
             break
         data_list.extend(response.get("data", []))
@@ -213,6 +217,7 @@ def send_page_request(url, method="get", page=0, page_size=2000, params=None):
 
 def gen_term_info():
     today = datetime.datetime.today()
+    today -= datetime.timedelta(days=30)
     current_year = str(today.year)
     today_str = today.strftime("%Y%m%d")
     last_year = today.year - 1
@@ -234,7 +239,11 @@ def gen_term_info():
         current_term = "%s02" % last_year
         current_year = str(last_year)
 
-    return dict(current_term=current_term, current_year=current_year, current_school_term=current_school_term)
+    return dict(
+        current_term=current_term,
+        current_year=current_year,
+        current_school_term=current_school_term
+    )
 
 
 def generate_data():
@@ -242,13 +251,16 @@ def generate_data():
     current_term = term_info["current_term"]
     current_year = term_info["current_year"]
     current_school_term = term_info["current_school_term"]
-    # params = {"year": current_year, "term": current_school_term}
-    params = {"year": current_year}
+    params = {"year": current_year, "term": current_school_term, "salt": get_random_string(10)}
+    signature = make_signature(**params)
+    params["signature"] = signature
     print '获取{}学期数据中......'.format(current_term)
 
     # 产生对照关系表
     print 'department_data......'
-    department_data = send_request(url='{}/get_department_data'.format(XUST_SERVER))
+    department_data = send_request(
+        url='{}/get_department_data'.format(XUST_SERVER), params=params
+    )
 
     print 'tra_classroom_data......'
     tra_classroom_data = send_page_request(
@@ -274,7 +286,7 @@ def generate_data():
         page_size=5000, params=params
     )
 
-    department_name_list = [d["department_name"] for d in department_data]
+    department_name_list = [[d["department_name"]] for d in department_data]
     tradition_class_info_list = []
     user_info_list = []
     course_info_list = []
@@ -318,13 +330,6 @@ def generate_data():
         classroom_name = info_dict.get('classroom_name')
         teacher_number = info_dict.get('teacher_number')
         teacher_name = info_dict.get('teacher_name')
-
-        # year = info_dict.get('year')
-        # term = info_dict.get('term')
-
-        # if year != CURRENT_YEAR or term != TERM:
-        #     continue
-
         final_classroom_code = '{}-{}'.format(current_term, classroom_code)
 
         course_info_list.append([
@@ -353,7 +358,9 @@ def generate_data():
     # ---------------------------------------------------------------------------------
     # 每个学校,以下代码都一致(根据个人需求改变tmp路径即可)
     # ---------------------------------------------------------------------------------
-    tmp_csv_file_path = '/tmp/university_data/{}'.format(XUST_UNI_INFO_DICT.get('university_name'))
+    tmp_csv_file_path = '/opt/ykt/university_data/{}'.format(
+        XUST_UNI_INFO_DICT.get('university_name')
+    )
     result_info_dict = {
         "department": department_name_list,
         "tra_classroom": tradition_class_info_list,
