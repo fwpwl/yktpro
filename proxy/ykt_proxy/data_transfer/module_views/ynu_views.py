@@ -1,0 +1,189 @@
+# coding:utf-8
+
+from data_transfer.module_managers.ynu_manager import ynu_bks_get_department_data, is_valid_request, \
+    ynu_bks_get_tra_classroom_data, ynu_bks_get_course_basic_data, ynu_bks_get_course_year_data, \
+    ynu_bks_get_course_belong_data, ynu_bks_get_student_data, ynu_bks_get_choose_data, ynu_bks_get_teacher_data, \
+    ynu_yjs_get_department_data, ynu_yjs_get_student_data, ynu_yjs_get_teacher_data, ynu_yjs_get_course_basic_data, \
+    ynu_yjs_get_course_data, ynu_yjs_get_choose_data
+from data_transfer.utils.network import success_response, get_para_from_request_safe, error_response
+
+
+# ---------------------------------------------------------------------------------
+# 本科生基本数据
+# ---------------------------------------------------------------------------------
+
+def ynu_bks_get_department_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_bks_get_department_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_bks_get_department_data()
+    return success_response(ret_data)
+
+
+def ynu_bks_get_tra_classroom_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_bks_get_tra_classroom_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_bks_get_tra_classroom_data()
+    return success_response(ret_data)
+
+
+def ynu_bks_get_course_basic_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_bks_get_course_basic_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_bks_get_course_basic_data()
+    return success_response(ret_data)
+
+
+def ynu_bks_get_course_year_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_bks_get_course_year_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_bks_get_course_year_data()
+    return success_response(ret_data)
+
+
+def ynu_bks_get_course_belong_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_bks_get_course_belong_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    year = get_para_from_request_safe(request, 'year')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_bks_get_course_belong_data(year)
+    return success_response(ret_data)
+
+
+def ynu_bks_get_student_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_bks_get_student_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_bks_get_student_data()
+    return success_response(ret_data)
+
+
+def ynu_bks_get_teacher_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_bks_get_teacher_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_bks_get_teacher_data()
+    return success_response(ret_data)
+
+
+def ynu_bks_get_choose_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_bks_get_choose_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    year = get_para_from_request_safe(request, 'year')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_bks_get_choose_data(year)
+    return success_response(ret_data)
+
+
+# ---------------------------------------------------------------------------------
+# 研究生数据
+# ---------------------------------------------------------------------------------
+
+def ynu_yjs_get_department_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_yjs_get_department_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_yjs_get_department_data()
+    return success_response(ret_data)
+
+
+def ynu_yjs_get_student_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_yjs_get_student_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_yjs_get_student_data()
+    return success_response(ret_data)
+
+
+def ynu_yjs_get_teacher_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_yjs_get_teacher_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_yjs_get_teacher_data()
+    return success_response(ret_data)
+
+
+def ynu_yjs_get_course_basic_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_yjs_get_course_basic_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_yjs_get_course_basic_data()
+    return success_response(ret_data)
+
+
+def ynu_yjs_get_course_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_yjs_get_course_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    year = get_para_from_request_safe(request, 'year')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_yjs_get_course_data(year)
+    return success_response(ret_data)
+
+
+def ynu_yjs_get_choose_data_view(request):
+    """
+    URL[GET]:/data/ynu/ynu_yjs_get_choose_data/
+    """
+    key = get_para_from_request_safe(request, 'key')
+    year = get_para_from_request_safe(request, 'year')
+    if not is_valid_request(key):
+        return error_response('无效的请求!')
+
+    ret_data = ynu_yjs_get_choose_data(year)
+    return success_response(ret_data)
+
