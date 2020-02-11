@@ -85,7 +85,7 @@ def tjcu_get_course_data(db):
 
 @get_client
 def tjcu_get_choose_data(db):
-    statement = "select xkh, xh from bxqxksjb"
+    statement = "select xkh, xh from bxqxkxxb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
 
     keys_list = ['classroom_code', 'teacher_number']
