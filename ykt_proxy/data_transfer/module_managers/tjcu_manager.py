@@ -52,7 +52,7 @@ def tjcu_get_department_data(db):
 
 @get_client
 def tjcu_get_tra_classroom_data(db):
-    statement = "select XYMC, ZYMC, XZBJMC, RXNF from xzbjb"
+    statement = "select ssxy, zy, bjmc, rxxn from xzbjb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "major", 'tra_classroom_name', "year"]
 
@@ -63,7 +63,7 @@ def tjcu_get_tra_classroom_data(db):
 
 @get_client
 def tjcu_get_user_data(db):
-    statement = "select XYMC, XZBJ, XM, GH, SF, RXXN from qtcyb"
+    statement = "select ssxy, xzbjmc, xm, xh, sf, rxxn from qtcyb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "tra_classroom_name", 'name', 'number', 'user_type', 'year']
 
@@ -74,7 +74,7 @@ def tjcu_get_user_data(db):
 
 @get_client
 def tjcu_get_course_data(db):
-    statement = "select XYMC, KCH, KXH, KKLSGH, KKLSXM, KCMC, KCBJM, KKXN, KKXQ from bxqkkxxb"
+    statement = "select ssxy, kch, xkh, jsgh, jsxm, kcmc, kcbjmc, kkxn, kkxq from bxqkkxxb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "course_code", "classroom_code", 'teacher_number', 'teacher_name', 'course_name',
                  'classroom_name', "year", 'term']
@@ -85,7 +85,7 @@ def tjcu_get_course_data(db):
 
 @get_client
 def tjcu_get_choose_data(db):
-    statement = "select KXH, XH from bxqxksjb"
+    statement = "select xkh, xh from bxqxksjb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
 
     keys_list = ['classroom_code', 'teacher_number']
