@@ -41,7 +41,7 @@ def get_client(func):
 # ---------------------------------------------------------------------------------
 
 @get_client
-def ynufe_get_department_data(db):
+def tjcu_get_department_data(db):
     statement = "select XYDM, XYMC  from xyxxb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_code", "department_name"]
@@ -51,7 +51,7 @@ def ynufe_get_department_data(db):
 
 
 @get_client
-def ynufe_get_tra_classroom_data(db):
+def tjcu_get_tra_classroom_data(db):
     statement = "select XYMC, ZYMC, XZBJMC, RXNF from xzbjb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "major", 'tra_classroom_name', "year"]
@@ -62,7 +62,7 @@ def ynufe_get_tra_classroom_data(db):
 
 
 @get_client
-def ynufe_get_user_data(db):
+def tjcu_get_user_data(db):
     statement = "select XYMC, XZBJ, XM, GH, SF, RXXN from qtcyb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "tra_classroom_name", 'name', 'number', 'user_type', 'year']
@@ -73,7 +73,7 @@ def ynufe_get_user_data(db):
 
 
 @get_client
-def ynufe_get_course_data(db):
+def tjcu_get_course_data(db):
     statement = "select XYMC, KCH, KXH, KKLSGH, KKLSXM, KCMC, KCBJM, KKXN, KKXQ from bxqkkxxb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", "course_code", "classroom_code", 'teacher_number', 'teacher_name', 'course_name',
@@ -84,7 +84,7 @@ def ynufe_get_course_data(db):
 
 
 @get_client
-def ynufe_get_choose_data(db):
+def tjcu_get_choose_data(db):
     statement = "select KXH, XH from bxqxksjb"
     data_list = db.get_raw_data_by_statement(statement=statement, var_tuple=None)
 
