@@ -1,9 +1,0 @@
-Django >= 1.7.1,<1.11
-setuptools>=5.5
-requests>=2.4
-requests_futures>=0.9.5
-lxml>=3.4
-six>=1.8
-MySQL-python==1.2.5
-cx_Oracle==6.4.1
-pymssql==2.1.4
