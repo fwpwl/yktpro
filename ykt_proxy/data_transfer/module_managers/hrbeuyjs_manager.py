@@ -26,7 +26,7 @@ def get_client(func):
     """
 
     def wrapper():
-        conn = MySQLTransferHandler(host="127.0.0.1",
+        conn = MySQLTransferHandler(host="192.168.21.13",
                                     port=3306,
                                     user="root",
                                     password="Ykt@2020",
