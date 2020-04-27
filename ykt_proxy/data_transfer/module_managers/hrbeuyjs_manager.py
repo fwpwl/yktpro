@@ -48,13 +48,13 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 
 
 def hrbeuyjs_get_department_data():
-    print('start request department')
     statement = "select xymc from xyxxb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
-    # final_info_list = query_data_to_dict_list(data_list, keys_list)
     print(data_list)
-    return data_list
+    keys_list = ["department_name"]
+    final_info_list = query_data_to_dict_list(data_list, keys_list)
+    return final_info_list
 
 def hrbeuyjs_get_tra_data():
     statement = "select ssxy, ZY, bjmc, rxxn from xzbjb"
