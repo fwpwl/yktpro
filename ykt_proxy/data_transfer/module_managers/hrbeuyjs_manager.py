@@ -51,28 +51,30 @@ def hrbeuyjs_get_department_data():
     statement = "select xymc from xyxxb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
-    print(data_list)
     keys_list = ["department_name"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
 
 def hrbeuyjs_get_tra_data():
     statement = "select ssxy, ZY, bjmc, rxxn from xzbjb"
-    data_list = get_db_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    cursor.execute(statement)
+    data_list = cursor.fetchall()
     keys_list = ["department_name", "major", 'tra_classroom_name', "year"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
 
 def hrbeuyjs_get_user_data():
     statement = "select SSXY, xzbjmc, XM, XH, sf, rxxn from qtcyb"
-    data_list = get_db_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    cursor.execute(statement)
+    data_list = cursor.fetchall()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
 
 def hrbeuyjs_get_course_data(year, term):
     statement = "select SSXY, kch, kcmc, xkh, kcbjmc, jsgh, jsxm, KKXN, KKXQ from bxqkkxxb where KKXN='{}' and KKXQ='{}'".format(year, term)
-    data_list = get_db_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    cursor.execute(statement)
+    data_list = cursor.fetchall()
     keys_list = ["department_name", "course_code", "course_name", 'classroom_code', "classroom_name", 
         "teacher_number", "teacher_name", "year", "term"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
@@ -80,7 +82,8 @@ def hrbeuyjs_get_course_data(year, term):
 
 def hrbeuyjs_get_choose_data(year, term):
     statement = "select XKH, XH from bxqxkxxb where KKXN='{}' and KKXQ='{}'".format(year, term)
-    data_list = get_db_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    cursor.execute(statement)
+    data_list = cursor.fetchall()
     keys_list = ["classroom_code", "student_number"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
