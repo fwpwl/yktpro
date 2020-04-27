@@ -39,6 +39,7 @@ class MySQLTransferHandler(object):
     def __init__(self, host, port, user, password, database):
         import pymysql
         self.db = pymysql.connect(host=host, port=port, user=user, passwd=password, db=database)
+        print(self.db, 'db')
         print("connect to MySQL success")
         self.cursor = self.db.cursor()
         print("generate MySQL data transfer object success")

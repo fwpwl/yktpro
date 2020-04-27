@@ -32,7 +32,7 @@ def get_client(func):
                                     password="Ykt@2020",
                                     database="ykt")
         return func(conn)
-
+    print(wrapper)
     return wrapper
 
 
@@ -49,7 +49,8 @@ def hrbeuyjs_get_department_data():
     print('start request department')
     statement = "select xymc from xyxxb"
     data_list = get_db_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
-    keys_list = ["department_name", ]
+    print('data_list', data_list)
+    keys_list = ["department_name"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
 
