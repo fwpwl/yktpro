@@ -2,6 +2,10 @@
 from data_transfer.data_proxy_utils import MySQLTransferHandler
 from data_transfer.utils.common_tools import cal_md5
 from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
+import pymysql
+
+
+# db = pymysql.connect(host=host, port=port, user=user, passwd=password, db=database)
 
 
 def is_valid_request(key):
@@ -25,16 +29,13 @@ def get_client(func):
     """
     """
 
-    def wrapper():
-        conn = MySQLTransferHandler(host="192.168.21.13",
+    conn = MySQLTransferHandler(host="192.168.21.13",
                                     port=3306,
                                     user="root",
                                     password="Ykt@2020",
                                     database="ykt")
-        return func(conn)
-    print(wrapper)
-    return wrapper
-
+    print(conn)
+    return conn
 
 
 def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
@@ -48,7 +49,7 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 def hrbeuyjs_get_department_data():
     print('start request department')
     statement = "select xymc from xyxxb"
-    data_list = get_db_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
+    data_list = get_db_client()
     print('data_list', data_list)
     keys_list = ["department_name"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
