@@ -46,6 +46,7 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 
 
 def hrbeuyjs_get_department_data():
+    print('start request department')
     statement = "select xymc from xyxxb"
     data_list = get_db_client().get_raw_data_by_statement(statement=statement, var_tuple=None)
     keys_list = ["department_name", ]
