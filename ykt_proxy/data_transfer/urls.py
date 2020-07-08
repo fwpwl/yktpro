@@ -14,4 +14,6 @@ urlpatterns += [
     url(r"^tjcu/", include("data_transfer.module_urls.tjcu_urls")),
     # 哈尔滨工程大学研究生院
     url(r"^hrbeuyjs/", include("data_transfer.module_urls.hrbeuyjs_urls")),
+    # 新疆师范大学
+    url(r"^xjnu/", include("data_transfer.module_urls.xjnu_urls")),
 ]
