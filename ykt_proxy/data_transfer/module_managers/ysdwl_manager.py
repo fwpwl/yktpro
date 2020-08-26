@@ -37,17 +37,17 @@ def ysdwl_get_department_data():
 
 
 def ysdwl_get_tra_classroom_data():
-    statement = "select ssxy, zy, bjmc, rxxn from xzbjb"
+    statement = "select xymc, bjmc, nj from xzbjb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
-    keys_list = ["department_name", "major", 'tra_classroom_name', "year"]
+    keys_list = ["department_name", 'tra_classroom_name', "year"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
     return final_info_list
 
 
 def ysdwl_get_user_data():
-    statement = "select ssxy, xzbjmc, xm, xh, sf, rxxn from qtcyb"
+    statement = "select xy1, xzb1, xm1, xh1, js, dqszj1 from qtcyb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
@@ -57,7 +57,7 @@ def ysdwl_get_user_data():
 
 
 def ysdwl_get_course_data(year, term):
-    statement = "select ssxy, kch, xkh, jsgh, jsxm, kcmc, kcbjmc, kkxn, kkxq from bxqkkxxb KKXN='{}' and KKXQ='{}'".format(year, term)
+    statement = "select kkxy, kch, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxb XN='{}' and XQ='{}'".format(year, term)
     print(statement)
     cursor.execute(statement)
     data_list = cursor.fetchall()
@@ -67,7 +67,7 @@ def ysdwl_get_course_data(year, term):
 
 
 def ysdwl_get_choose_data(year, term):
-    statement = "select xkh, xh from bxqxkxxb KKXN='{}' and KKXQ='{}'".format(year, term)
+    statement = "select xkkh, xh from xsxkb xn='{}' and xq='{}'".format(year, term)
     print(statement)
     cursor.execute(statement)
     data_list = cursor.fetchall()
