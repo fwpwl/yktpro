@@ -55,7 +55,7 @@ def ysdwl_get_course_data_view(request):
     year = get_para_from_request_safe(request, 'year')
     term = get_para_from_request_safe(request, 'term')
 
-    ret_data = ysdwl_get_course_data()
+    ret_data = ysdwl_get_course_data(year, term)
     return success_response(ret_data)
 
 
@@ -68,6 +68,5 @@ def ysdwl_get_choose_data_view(request):
     #     return error_response('无效的请求!')
     year = get_para_from_request_safe(request, 'year')
     term = get_para_from_request_safe(request, 'term')
-    print(year, term)
-    ret_data = ysdwl_get_choose_data()
+    ret_data = ysdwl_get_choose_data(year, term)
     return success_response(ret_data)
