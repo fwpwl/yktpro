@@ -4,7 +4,7 @@ from data_transfer.utils.common_tools import cal_md5
 from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
 import pymysql
 
-db = pymysql.connect(host="127.0.0.1", port=3306, user="wlykt", passwd="ykt@2020", db="test")
+db = pymysql.connect(host="127.0.0.1", port=3306, user="wlykt", passwd="ykt#2020", db="test")
 cursor = db.cursor()
 
 def is_valid_request(key):
