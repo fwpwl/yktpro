@@ -42,7 +42,6 @@ def ysdwl_get_tra_classroom_data():
     data_list = cursor.fetchall()
     keys_list = ["department_name", 'tra_classroom_name', "year"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
-
     return final_info_list
 
 
@@ -52,23 +51,20 @@ def ysdwl_get_user_data():
     data_list = cursor.fetchall()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
-
     return final_info_list
 
 
 def ysdwl_get_course_data(year, term):
-    statement = "select kkxy, kch, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxb where xn='{}' and xq='{}'".format(year, term)
-    print(statement)
+    statement = "select kkxy, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxb where xn='{}' and xq='{}'".format(year, term)
     cursor.execute(statement)
     data_list = cursor.fetchall()
-    keys_list = ["department_name", "course_code", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name', "year", 'term']
+    keys_list = ["department_name", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name', "year", 'term']
     user_info_data = query_data_to_dict_list(data_list, keys_list)
     return user_info_data
 
 
 def ysdwl_get_choose_data(year, term):
     statement = "select xkkh, xh from xsxkb where xn='{}' and xq='{}'".format(year, term)
-    print(statement)
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ['classroom_code', 'student_number']
