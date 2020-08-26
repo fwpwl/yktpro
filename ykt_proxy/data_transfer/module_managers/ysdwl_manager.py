@@ -57,7 +57,7 @@ def ysdwl_get_user_data():
 
 
 def ysdwl_get_course_data(year, term):
-    statement = "select kkxy, kch, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxb XN='{}' and XQ='{}'".format(year, term)
+    statement = "select kkxy, kch, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxb where xn='{}' and xq='{}'".format(year, term)
     print(statement)
     cursor.execute(statement)
     data_list = cursor.fetchall()
@@ -67,7 +67,7 @@ def ysdwl_get_course_data(year, term):
 
 
 def ysdwl_get_choose_data(year, term):
-    statement = 'select xkkh, xh from xsxkb xn="{}" and xq={}'.format(year, term)
+    statement = "select xkkh, xh from xsxkb where xn='{}' and xq='{}'".format(year, term)
     print(statement)
     cursor.execute(statement)
     data_list = cursor.fetchall()
