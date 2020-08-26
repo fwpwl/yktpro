@@ -67,7 +67,7 @@ def ysdwl_get_course_data(year, term):
 
 
 def ysdwl_get_choose_data(year, term):
-    statement = "select xkkh, xh from xsxkb xn={} and xq={}".format(year, term)
+    statement = "select xkkh, xh from xsxkb xn='{}' and xq={}".format(year, term)
     print(statement)
     cursor.execute(statement)
     data_list = cursor.fetchall()
