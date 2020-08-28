@@ -52,10 +52,10 @@ def grabuct_get_user_data():
 
 
 def grabuct_get_course_data(year, term):
-    statement = "select ssxy, xkh, jsgh, jsxm, kcmc, kcbjmc from bxqkkxxb where kkxn='{}' and kkxq='{}'".format(year, term)
+    statement = "select ssxy, kcbh, xkh, jsgh, jsxm, kcmc, kcbjmc from bxqkkxxb where kkxn='{}' and kkxq='{}'".format(year, term)
     cursor.execute(statement)
     data_list = cursor.fetchall()
-    keys_list = ["department_name", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name']
+    keys_list = ["department_name", "course_code", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name']
     user_info_data = query_data_to_dict_list(data_list, keys_list)
     return user_info_data
 
