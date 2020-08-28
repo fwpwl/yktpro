@@ -9,8 +9,8 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    # 云南师范大学文理学院
-    url(r"^ysdwl/", include("data_transfer.module_urls.ysdwl_urls")),
+    # 北京化工大学研究生院
+    url(r"^grabuct/", include("data_transfer.module_urls.grabuct_urls")),
     
 
 ]

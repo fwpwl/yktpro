@@ -2,9 +2,10 @@
 from data_transfer.data_proxy_utils import MySQLTransferHandler
 from data_transfer.utils.common_tools import cal_md5
 from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
-import pymysql
+import pymssql
+import datetime
 
-db = pymysql.connect(host="127.0.0.1", port=3306, user="wlykt", passwd="ykt#2020", db="test")
+db = pymssql.connect(host='121.195.154.168',user='sjgx',password='bjhg2019!@',database='pubs')
 cursor = db.cursor()
 
 def is_valid_request(key):
@@ -27,8 +28,8 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 # 本科生基本数据
 # ---------------------------------------------------------------------------------
 
-def ysdwl_get_department_data():
-    statement = "select XYMC from xyxxb"
+def grabuct_get_department_data():
+    statement = "select xsmc from xyxxb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name"]
@@ -36,35 +37,31 @@ def ysdwl_get_department_data():
     return final_info_list
 
 
-def ysdwl_get_tra_classroom_data():
-    statement = "select xymc, bjmc, nj from xzbjb"
+def grabuct_get_tra_classroom_data():
+    year = datetime.datetime.now().year
+    return ["北京化工大学研究生院", "研究生"]
+
+
+def grabuct_get_user_data():
+    statement = "select ssxy, xm, xh, sf, rxxn from qtcyb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
-    keys_list = ["department_name", 'tra_classroom_name', "year"]
+    keys_list = ["department_name", 'name', 'number', 'user_type', 'year']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
 
 
-def ysdwl_get_user_data():
-    statement = "select xy1, xzb1, xm1, xh1, js, dqszj1 from qtcyb"
+def grabuct_get_course_data(year, term):
+    statement = "select ssxy, xkh, jsgh, jsxm, kcmc, kcbjmc from bxqkkxxb where kkxn='{}' and kkxq='{}'".format(year, term)
     cursor.execute(statement)
     data_list = cursor.fetchall()
-    keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
-    final_info_list = query_data_to_dict_list(data_list, keys_list)
-    return final_info_list
-
-
-def ysdwl_get_course_data(year, term):
-    statement = "select kkxy, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxb where xn='{}' and xq='{}'".format(year, term)
-    cursor.execute(statement)
-    data_list = cursor.fetchall()
-    keys_list = ["department_name", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name', "year", 'term']
+    keys_list = ["department_name", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name']
     user_info_data = query_data_to_dict_list(data_list, keys_list)
     return user_info_data
 
 
-def ysdwl_get_choose_data(year, term):
-    statement = "select xkkh, xh from xsxkb where xn='{}' and xq='{}'".format(year, term)
+def grabuct_get_choose_data(year, term):
+    statement = "select bjid, xh from bxqxkxxb where kkxn='{}' and kkxq='{}'".format(year, term)
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ['classroom_code', 'student_number']
