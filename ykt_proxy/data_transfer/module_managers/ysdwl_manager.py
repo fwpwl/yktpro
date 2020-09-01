@@ -46,7 +46,7 @@ def ysdwl_get_tra_classroom_data():
 
 
 def ysdwl_get_user_data():
-    statement = "select xy1, xzb1, xm1, xh1, js, dqszj1 from qtcyb"
+    statement = "select xy1, xzb1, xm1, xh1, sf, dqszj1 from qtcyb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
