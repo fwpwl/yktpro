@@ -60,7 +60,7 @@ def sdtbu_get_user_data():
 
 
 def sdtbu_get_course_data(year, term):
-    statement = "select ssxy, kch, xkh, jsgh, jsxm, kcmc, kcbjmc, kkxn, kkxq from bxqkkxxb KKXN='{}' and KKXQ='{}'".format(year, term)
+    statement = "select ssxy, kch, xkh, jsgh, jsxm, kcmc, kcbjmc, kkxn, kkxq from bxqkkxxb where KKXN='{}' and KKXQ='{}'".format(year, term)
     print(statement)
     cursor.execute(statement)
     data_list = cursor.fetchall()
@@ -70,7 +70,7 @@ def sdtbu_get_course_data(year, term):
 
 
 def sdtbu_get_choose_data(year, term):
-    statement = "select xkh, xh from bxqxkxxb KKXN='{}' and KKXQ='{}'".format(year, term)
+    statement = "select xkh, xh from bxqxkxxb where KKXN='{}' and KKXQ='{}'".format(year, term)
     print(statement)
     cursor.execute(statement)
     data_list = cursor.fetchall()
