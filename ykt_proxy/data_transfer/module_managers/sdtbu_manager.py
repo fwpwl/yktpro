@@ -28,8 +28,9 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 # ---------------------------------------------------------------------------------
 
 def sdtbu_get_department_data():
-    statement = "select XYMC from xyxxb"
+    statement = "select xymc from xyxxb"
     cursor.execute(statement)
+    print(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
@@ -39,6 +40,7 @@ def sdtbu_get_department_data():
 def sdtbu_get_tra_classroom_data():
     statement = "select ssxy, zy, bjmc, rxxn from xzbjb"
     cursor.execute(statement)
+    print(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name", "major", 'tra_classroom_name', "year"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
@@ -49,6 +51,7 @@ def sdtbu_get_tra_classroom_data():
 def sdtbu_get_user_data():
     statement = "select ssxy, xzbjmc, xm, xh, sf, rxxn from qtcyb"
     cursor.execute(statement)
+    print(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
