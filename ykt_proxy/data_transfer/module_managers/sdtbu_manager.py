@@ -27,7 +27,7 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 # 本科生基本数据
 # ---------------------------------------------------------------------------------
 
-def scut_get_department_data():
+def sdtbu_get_department_data():
     statement = "select XYMC from xyxxb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
@@ -36,7 +36,7 @@ def scut_get_department_data():
     return final_info_list
 
 
-def scut_get_tra_classroom_data():
+def sdtbu_get_tra_classroom_data():
     statement = "select ssxy, zy, bjmc, rxxn from xzbjb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
@@ -46,7 +46,7 @@ def scut_get_tra_classroom_data():
     return final_info_list
 
 
-def scut_get_user_data():
+def sdtbu_get_user_data():
     statement = "select ssxy, xzbjmc, xm, xh, sf, rxxn from qtcyb"
     cursor.execute(statement)
     data_list = cursor.fetchall()
@@ -56,7 +56,7 @@ def scut_get_user_data():
     return final_info_list
 
 
-def scut_get_course_data(year, term):
+def sdtbu_get_course_data(year, term):
     statement = "select ssxy, kch, xkh, jsgh, jsxm, kcmc, kcbjmc, kkxn, kkxq from bxqkkxxb KKXN='{}' and KKXQ='{}'".format(year, term)
     print(statement)
     cursor.execute(statement)
@@ -66,7 +66,7 @@ def scut_get_course_data(year, term):
     return user_info_data
 
 
-def scut_get_choose_data(year, term):
+def sdtbu_get_choose_data(year, term):
     statement = "select xkh, xh from bxqxkxxb KKXN='{}' and KKXQ='{}'".format(year, term)
     print(statement)
     cursor.execute(statement)

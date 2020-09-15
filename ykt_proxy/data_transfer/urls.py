@@ -10,6 +10,6 @@ urlpatterns = [
 
 # 分层各模块URL
 urlpatterns += [
-    # 新疆师范大学
-    url(r"^scut/", include("data_transfer.module_urls.scut_urls")),
+    # 山东工商学院
+    url(r"^sdtbu/", include("data_transfer.module_urls.sdtbu_urls")),
 ]
