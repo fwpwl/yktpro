@@ -28,7 +28,7 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 # ---------------------------------------------------------------------------------
 
 def ysdwl_get_department_data():
-    statement = "select XYMC from xyxxb"
+    statement = "select xymc from xyxxbview"
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name"]
@@ -37,16 +37,16 @@ def ysdwl_get_department_data():
 
 
 def ysdwl_get_tra_classroom_data():
-    statement = "select xymc, bjmc, nj from xzbjb"
+    statement = "select zymc, bjmc, nj from xzbjbview"
     cursor.execute(statement)
     data_list = cursor.fetchall()
-    keys_list = ["department_name", 'tra_classroom_name', "year"]
+    keys_list = ['major', 'tra_classroom_name', "year"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
 
 
 def ysdwl_get_user_data():
-    statement = "select xy1, xzb1, xm1, xh1, sf, dqszj1 from qtcyb"
+    statement = "select xy1, xzb1, xm1, xh1, sf, dqszj1 from qtcybview"
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
@@ -55,7 +55,7 @@ def ysdwl_get_user_data():
 
 
 def ysdwl_get_course_data(year, term):
-    statement = "select kkxy, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxb where xn='{}' and xq='{}'".format(year, term)
+    statement = "select kkxy, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxbview where xn='{}' and xq='{}'".format(year, term)
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ["department_name", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name', "year", 'term']
@@ -64,7 +64,7 @@ def ysdwl_get_course_data(year, term):
 
 
 def ysdwl_get_choose_data(year, term):
-    statement = "select xkkh, xh from xsxkb where xn='{}' and xq='{}'".format(year, term)
+    statement = "select xkkh, xh from xsxkbview where xn='{}' and xq='{}'".format(year, term)
     cursor.execute(statement)
     data_list = cursor.fetchall()
     keys_list = ['classroom_code', 'student_number']
