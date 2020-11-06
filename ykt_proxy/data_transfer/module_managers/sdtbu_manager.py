@@ -44,7 +44,6 @@ def sdtbu_get_department_data():
 
     print(statement)
     data_list = cursor.fetchall()
-    db.commit()
     keys_list = ["department_name"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
@@ -59,7 +58,6 @@ def sdtbu_get_tra_classroom_data():
         cursor.execute(statement)
 
     data_list = cursor.fetchall()
-    db.commit()
     keys_list = ["department_name", "major", 'tra_classroom_name', "year"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -75,7 +73,6 @@ def sdtbu_get_user_data():
         cursor.execute(statement)
 
     data_list = cursor.fetchall()
-    db.commit()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -92,7 +89,6 @@ def sdtbu_get_course_data(year, term):
         cursor.execute(statement)
 
     data_list = cursor.fetchall()
-    db.commit()
     keys_list = ["department_name", "course_code", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name', "year", 'term']
     user_info_data = query_data_to_dict_list(data_list, keys_list)
     return user_info_data
@@ -108,7 +104,6 @@ def sdtbu_get_choose_data(year, term):
         cursor.execute(statement)
 
     data_list = cursor.fetchall()
-    db.commit()
     db.close()
     keys_list = ['classroom_code', 'student_number']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
