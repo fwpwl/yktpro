@@ -3,6 +3,7 @@ from data_transfer.data_proxy_utils import MySQLTransferHandler
 from data_transfer.utils.common_tools import cal_md5
 from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
 import pymysql
+import logging
 
 db = pymysql.connect(host="127.0.0.1", port=3306, user="root", passwd="ykt@2020", db="ykt")
 cursor = db.cursor()
@@ -36,7 +37,8 @@ def sdtbu_get_department_data():
     statement = "select xymc from xyxxb"
     try:
         cursor.execute(statement)
-    except:
+    except Exception as e:
+        logging.info(e)
         cursor = connect_mysql()
         cursor.execute(statement)
 
