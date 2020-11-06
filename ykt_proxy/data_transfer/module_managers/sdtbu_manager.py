@@ -7,6 +7,11 @@ import pymysql
 db = pymysql.connect(host="127.0.0.1", port=3306, user="root", passwd="ykt@2020", db="ykt")
 cursor = db.cursor()
 
+def connect_mysql():
+    db = pymysql.connect(host="127.0.0.1", port=3306, user="root", passwd="ykt@2020", db="ykt")
+    cursor = db.cursor()
+    return cursor
+
 def is_valid_request(key):
     """
 
@@ -29,9 +34,15 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 
 def sdtbu_get_department_data():
     statement = "select xymc from xyxxb"
-    cursor.execute(statement)
+    try:
+        cursor.execute(statement)
+    except:
+        cursor = connect_mysql()
+        cursor.execute(statement)
+
     print(statement)
     data_list = cursor.fetchall()
+    db.commit()
     keys_list = ["department_name"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
@@ -39,9 +50,14 @@ def sdtbu_get_department_data():
 
 def sdtbu_get_tra_classroom_data():
     statement = "select ssxy, zy, bjmc, rxxn from xzbjb"
-    cursor.execute(statement)
-    print(statement)
+    try:
+        cursor.execute(statement)
+    except:
+        cursor = connect_mysql()
+        cursor.execute(statement)
+
     data_list = cursor.fetchall()
+    db.commit()
     keys_list = ["department_name", "major", 'tra_classroom_name', "year"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -50,9 +66,14 @@ def sdtbu_get_tra_classroom_data():
 
 def sdtbu_get_user_data():
     statement = "select ssxy, xzbjmc, xm, xh, sf, rxxn from qtcyb"
-    cursor.execute(statement)
-    print(statement)
+    try:
+        cursor.execute(statement)
+    except:
+        cursor = connect_mysql()
+        cursor.execute(statement)
+
     data_list = cursor.fetchall()
+    db.commit()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
 
@@ -62,8 +83,14 @@ def sdtbu_get_user_data():
 def sdtbu_get_course_data(year, term):
     statement = "select ssxy, kch, xkh, jsgh, jsxm, kcmc, kcbjmc, kkxn, kkxq from bxqkkxxb where KKXN='{}' and KKXQ='{}'".format(year, term)
     print(statement)
-    cursor.execute(statement)
+    try:
+        cursor.execute(statement)
+    except:
+        cursor = connect_mysql()
+        cursor.execute(statement)
+
     data_list = cursor.fetchall()
+    db.commit()
     keys_list = ["department_name", "course_code", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name', "year", 'term']
     user_info_data = query_data_to_dict_list(data_list, keys_list)
     return user_info_data
@@ -72,8 +99,15 @@ def sdtbu_get_course_data(year, term):
 def sdtbu_get_choose_data(year, term):
     statement = "select xkh, xh from bxqxkxxb where KKXN='{}' and KKXQ='{}'".format(year, term)
     print(statement)
-    cursor.execute(statement)
+    try:
+        cursor.execute(statement)
+    except:
+        cursor = connect_mysql()
+        cursor.execute(statement)
+
     data_list = cursor.fetchall()
+    db.commit()
+    db.close()
     keys_list = ['classroom_code', 'student_number']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
