@@ -3,9 +3,19 @@ from data_transfer.data_proxy_utils import MySQLTransferHandler
 from data_transfer.utils.common_tools import cal_md5
 from data_transfer.utils.datetime_utils import get_now_datetime_str, FORMAT_DATE_WITHOUT_SEPARATOR
 import pymysql
+import logging
 
 db = pymysql.connect(host="127.0.0.1", port=3306, user="wlykt", passwd="ykt#2020", db="test")
 cursor = db.cursor()
+
+
+def reconnection():
+    """
+    重连数据库
+    """
+    db = pymysql.connect(host="127.0.0.1", port=3306, user="wlykt", passwd="ykt#2020", db="test")
+    cursor = db.cursor()
+
 
 def is_valid_request(key):
     """
@@ -29,7 +39,13 @@ def query_data_to_dict_list(query_data_list_of_tuple, keys_list):
 
 def ysdwl_get_department_data():
     statement = "select xymc from xyxxbview"
-    cursor.execute(statement)
+    try:
+        cursor.execute(statement)
+    except Exception as e:
+        reconnection()
+        cursor.execute(statement)
+        logging.info('select xyxxb fail------{}'.format(e))
+
     data_list = cursor.fetchall()
     keys_list = ["department_name"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
@@ -38,8 +54,14 @@ def ysdwl_get_department_data():
 
 def ysdwl_get_tra_classroom_data():
     statement = "select zymc, bjmc, nj from xzbjbview"
-    cursor.execute(statement)
+    try:
+        cursor.execute(statement)
+    except Exception as e:
+        reconnection()
+        cursor.execute(statement)
+        logging.info('select xzbjb fail------{}'.format(e))
     data_list = cursor.fetchall()
+    db.commit()
     keys_list = ['major', 'tra_classroom_name', "year"]
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
@@ -47,8 +69,14 @@ def ysdwl_get_tra_classroom_data():
 
 def ysdwl_get_user_data():
     statement = "select xy1, xzb1, xm1, xh1, sf, dqszj1 from qtcybview"
-    cursor.execute(statement)
+    try:
+        cursor.execute(statement)
+    except Exception as e:
+        reconnection_mysql()
+        cursor.execute(statement)
+        logging.info('select user fail------{}'.format(e))
     data_list = cursor.fetchall()
+    db.commit()
     keys_list = ["department_name", "tra_class_name", 'name', 'number', 'user_type', 'year']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
@@ -56,8 +84,14 @@ def ysdwl_get_user_data():
 
 def ysdwl_get_course_data(year, term):
     statement = "select kkxy, xkkh, jszgh, jsxm, kcmc, bjmc, xn, xq from bxtkkxxbview where xn='{}' and xq='{}'".format(year, term)
-    cursor.execute(statement)
+    try:
+        cursor.execute(statement)
+    except Exception as e:
+        reconnection_mysql()
+        cursor.execute(statement)
+        logging.info('select course fail------{}'.format(e))
     data_list = cursor.fetchall()
+    db.commit()
     keys_list = ["department_name", "classroom_code", 'teacher_number', 'teacher_name', 'course_name', 'classroom_name', "year", 'term']
     user_info_data = query_data_to_dict_list(data_list, keys_list)
     return user_info_data
@@ -65,8 +99,16 @@ def ysdwl_get_course_data(year, term):
 
 def ysdwl_get_choose_data(year, term):
     statement = "select xkkh, xh from xsxkbview where xn='{}' and xq='{}'".format(year, term)
-    cursor.execute(statement)
+    try:
+        cursor.execute(statement)
+    except Exception as e:
+        reconnection_mysql()
+        cursor.execute(statement)
+        logging.info('select choose fail------{}'.format(e))
     data_list = cursor.fetchall()
+    db.commit()
+    cursor.close()
+    db.close()
     keys_list = ['classroom_code', 'student_number']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
