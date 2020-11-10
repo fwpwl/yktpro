@@ -104,7 +104,6 @@ def sdtbu_get_choose_data(year, term):
         cursor.execute(statement)
 
     data_list = cursor.fetchall()
-    db.close()
     keys_list = ['classroom_code', 'student_number']
     final_info_list = query_data_to_dict_list(data_list, keys_list)
     return final_info_list
